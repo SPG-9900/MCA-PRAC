@@ -1,0 +1,29 @@
+# List of strings
+thislist <- list("apple", "banana", "cherry")
+
+# Print the list
+thislist
+
+thislist <- list("apple", "banana", "cherry")
+
+thislist[1]
+thislist <- list("apple", "banana", "cherry")
+thislist[1] <- "blackcurrant"
+
+# Print the updated list
+thislist
+
+thislist <- list("apple", "banana", "cherry")
+length(thislist)
+
+#add list items
+thislist <- list("apple", "banana", "cherry")
+
+append(thislist, "orange")
+
+#loop
+thislist <- list("apple", "banana", "cherry")
+
+for (x in thislist) {
+  print(x)
+}

@@ -1,0 +1,153 @@
+Represent polynomial as a circularly linked list and write a menu driven program to perform addition and evaluation 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+struct node {
+    int coefficient;
+    int exponent;
+    struct node *next;
+};
+
+struct node *createNode(int coefficient, int exponent) {
+    struct node *newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->coefficient = coefficient;
+    newNode->exponent = exponent;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertTerm(struct node **head, int coefficient, int exponent) {
+    struct node *newNode = createNode(coefficient, exponent);
+    if (*head == NULL) {
+        *head = newNode;
+        (*head)->next = *head;
+    } else {
+        struct node *last = (*head)->next;
+        while (last->next != (*head)->next) {
+            last = last->next;
+        }
+        last->next = newNode;
+        newNode->next = *head;
+    }
+}
+
+void displayPolynomial(struct node *head) {
+    if (head == NULL) {
+        printf("Polynomial is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    printf("Polynomial: ");
+    do {
+        printf("%dX^%d", temp->coefficient, temp->exponent);
+        if (temp->next != head) {
+            printf(" + ");
+        }
+        temp = temp->next;
+    } while (temp != head);
+    printf("\n");
+}
+
+void addPolynomials(struct node **result, struct node *poly1, struct node *poly2) {
+    struct node *temp1 = poly1, *temp2 = poly2;
+    while (temp1 != NULL || temp2 != NULL) {
+        if (temp1 == NULL) {
+            insertTerm(result, temp2->coefficient, temp2->exponent);
+            temp2 = temp2->next;
+        } else if (temp2 == NULL) {
+            insertTerm(result, temp1->coefficient, temp1->exponent);
+            temp1 = temp1->next;
+        } else if (temp1->exponent > temp2->exponent) {
+            insertTerm(result, temp1->coefficient, temp1->exponent);
+            temp1 = temp1->next;
+        } else if (temp1->exponent < temp2->exponent) {
+            insertTerm(result, temp2->coefficient, temp2->exponent);
+            temp2 = temp2->next;
+        } else {
+            insertTerm(result, temp1->coefficient + temp2->coefficient, temp1->exponent);
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+        }
+    }
+}
+
+int evaluatePolynomial(struct node *head, int x) {
+    int result = 0;
+    struct node *temp = head;
+    do {
+        result += temp->coefficient * pow(x, temp->exponent);
+        temp = temp->next;
+    } while (temp != head);
+    return result;
+}
+
+int main() {
+    struct node *poly1 = NULL, *poly2 = NULL, *result = NULL;
+    int choice, coefficient, exponent, x, value;
+    while (1) {
+        printf("\nMenu\n");
+        printf("1. Insert term into first polynomial\n");
+        printf("2. Insert term into second polynomial\n");
+        printf("3. Display first polynomial\n");
+        printf("4. Display second polynomial\n");
+        printf("5. Add polynomials\n");
+        printf("6. Evaluate polynomial\n");
+printf("7. Exit\n");
+printf("Enter your choice: ");
+scanf("%d", &choice);
+switch (choice) {
+case 1:
+printf("Enter coefficient and exponent of term: ");
+scanf("%d %d", &coefficient, &exponent);
+insertTerm(&poly1, coefficient, exponent);
+break;
+        case 2:
+            printf("Enter coefficient and exponent of term: ");
+            scanf("%d %d", &coefficient, &exponent);
+            insertTerm(&poly2, coefficient, exponent);
+            break;
+
+        case 3:
+            displayPolynomial(poly1);
+            break;
+
+        case 4:
+            displayPolynomial(poly2);
+            break;
+
+        case 5:
+            if (poly1 == NULL && poly2 == NULL) {
+                printf("Both polynomials are empty\n");
+            } else if (poly1 == NULL) {
+                result = poly2;
+            } else if (poly2 == NULL) {
+                result = poly1;
+            } else {
+                addPolynomials(&result, poly1, poly2);
+            }
+            printf("Result: ");
+            displayPolynomial(result);
+            break;
+
+        case 6:
+            if (poly1 == NULL) {
+                printf("First polynomial is empty\n");
+            } else {
+                printf("Enter value of x: ");
+                scanf("%d", &x);
+                value = evaluatePolynomial(poly1, x);
+                printf("Result: %d\n", value);
+            }
+            break;
+
+        case 7:
+            exit(0);
+
+        default:
+            printf("Invalid choice\n");
+    }
+}
+return 0;
+}

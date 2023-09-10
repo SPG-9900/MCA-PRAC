@@ -1,0 +1,74 @@
+1.arithmatic operator
+2.logical operator
+3.comparison operator
+4.special operator
+5.set operator
+
+
+create table emp2(eid int primary key,ename varchar(20),deptid int references dept(deptid));
+insert into emp2 values(1,'Mohit',1);
+select * from emp2;
+
+
+1st: Display all the dept numbers available with the dept and emp tables avoiding duplicates.
+
+
+select deptid from dept union select deptid from emp2;
+
+
+    DEPTID
+----------
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
+        10
+..............................................................................
+2nd:Display all the dept numbers available with the dept and emp tables.
+
+
+select deptid from emp2 union all select deptid from dept;
+
+
+DEPTID
+----------------
+1
+1
+3
+3
+4
+5
+5
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+.....................................................................
+3rd:Display all the dept numbers available in emp and not in dept tables and vice versa.
+
+
+select deptid from dept minus select deptid from emp2;
+
+
+    DEPTID
+----------
+         2
+         6
+         7
+         8
+         9
+        10
+
+select deptid from emp2 minus select deptid from dept
+no rows selected

@@ -1,0 +1,55 @@
+LARGEST OF TWO NUMBER
+
+Declare
+a number(2);
+b number(2);
+begin
+a:=&a;
+b:=&b;
+if(a>b)then 
+dbms_output.put_line('Largets number is :' || a);
+else
+dbms_output.put_line('Largets number is :' || b);
+end if;
+end;
+
+Output:-
+Enter value for a: 7
+old   5: a:=&a;
+new   5: a:=7;
+Enter value for b: 9
+old   6: b:=&b;
+new   6: b:=9;
+
+PL/SQL procedure successfully completed.
+
+===========================================================================================
+SWAPPING OF TWO NUMBER
+
+
+ Declare
+    a number(20);
+    b number(20);
+    begin
+    a:=&a;
+    b:=&b;
+    dbms_output.put_line('Before swapping the values of a and b are : a = ' || a || ' and b = ' || b);
+    a:=a+b;
+    b:=a-b;
+    a:=a-b;
+    dbms_output.put_line('After swapping the values of a and b are : a = ' || a || ' and b= '||b);
+    end;
+   /
+
+
+Enter value for a: 34
+old   5: a:=&a;
+new   5: a:=34;
+Enter value for b: 56
+old   6: b:=&b;
+new   6: b:=56;
+Before swapping the values of a and b are : a = 34 and b = 56
+After swapping the values of a and b are : a = 56 and b= 34
+
+PL/SQL procedure successfully completed.
+

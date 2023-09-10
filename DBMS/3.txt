@@ -1,0 +1,174 @@
+1.Number function
+2.Aggregate function
+3.Character function
+4.Conversion function
+5.Date function
+
+1st
+List the E_no, E_name, Salary of all employees working for MANAGER
+
+
+select eno,ename,salary
+from emp1
+where designation='Manager';
+
+
+       ENO ENAME          SALARY
+---------- ---------- ----------
+         1 Hrishikesh      15000
+         2 Soham           25000
+........
+2nd
+Display all the details of the employee whose salary is more than the Sal of any IT PROFF..
+
+
+select * from emp1
+where salary>(select salary from emp1 where dname='IT');
+.........................................
+3rd
+List the employees in the ascending order of Designations of those joined after 1981.
+
+
+select * from emp1
+where doj>'01-jan-1981'
+order by designation;
+
+ENAME
+------
+Ramesh
+Rohan
+mahesh
+sumit
+tanmay
+Soham
+Hrishikesh
+.....................................
+4th
+List the employees along with their Experience and Daily Salary.
+
+
+select ename,salary/30 as dailysal,SYSDATE - doj as expiriance  from emp1;
+
+ENAME        DAILYSAL EXPIRIANCE
+---------- ---------- ----------
+Hrishikesh        500 	4210.48289
+Soham      833.333333 	4210.48289
+Mohit      333.333333 	24664.4829
+Rohan      833.333333 	1228.48289
+Ramesh            700 	863.482894
+sumit             700 	15412.4829
+tanmay            700 	15196.4829
+mahesh            700 	15182.4829
+mahesh            700 	15880.4829
+
+5th List the employees who are either 'CLERK' or 'ANALYST' .
+
+
+select * from emp1
+where designation='Clerk'
+or designation='Analyst';
+
+       ENO ENAME      ADDRESS                   PHONE     DEPTNO
+---------- ---------- -------------------- ---------- ----------
+DNAME                     JOBID DESIGNATION              SALARY DOJ
+-------------------- ---------- -------------------- ---------- ---------
+         4 Rohan      Mumbai                113455662          4
+IT                          102 Clerk                     25000 01-MAR-20
+
+         5 Ramesh     Pune                  113452662          5
+IT                          103 Analyst                   21000 01-MAR-21
+
+         6 sumit      Pune                  113456662          5
+Management                  104 Clerk                     21000 01-MAY-81
+
+
+       ENO ENAME      ADDRESS                   PHONE     DEPTNO
+---------- ---------- -------------------- ---------- ----------
+DNAME                     JOBID DESIGNATION              SALARY DOJ
+-------------------- ---------- -------------------- ---------- ---------
+         7 tanmay     Pune                  113456602          3
+Sales                       104 Clerk                     21000 03-DEC-81
+
+         8 mahesh     Pune                  113456601          4
+Purchase                    104 Clerk                     21000 17-DEC-81
+
+6th
+List the employees who joined on 1-MAY-81, 3-DEC-81, 17-DEC-81,19-JAN-80 .
+
+
+select * from emp1
+where doj in ('1-MAY-81', '3-DEC-81', '17-DEC-81','19-JAN-80')
+order by doj;
+
+       ENO ENAME      ADDRESS                   PHONE     DEPTNO
+---------- ---------- -------------------- ---------- ----------
+DNAME                     JOBID DESIGNATION              SALARY DOJ
+-------------------- ---------- -------------------- ---------- ---------
+         9 mahesh     Pune                  113456601          4
+Purchase                    104 Accountant                21000 19-JAN-80
+
+         6 sumit      Pune                  113456662          5
+Management                  104 Clerk                     21000 01-MAY-81
+
+         7 tanmay     Pune                  113456602          3
+Sales                       104 Clerk                     21000 03-DEC-81
+
+
+         8 mahesh     Pune                  113456601          4
+Purchase                    104 Clerk                     21000 17-DEC-81
+
+................................................................
+7th
+List the employees who are working for the Deptno 4 or 5.
+
+
+select ename from emp1 where deptno=4 or deptno=5;
+
+ENAME
+--------
+Rohan
+Ramesh
+sumit
+mahesh
+mahesh
+............................................................
+8th
+List the Enames those are starting with 'S' .
+
+
+select ename from emp1
+where ename like 'S%';
+
+ENAME
+----------
+Soham'
+...........................................................
+9th
+Display the name as well as the first five characters of name(s) starting with 'H'
+ 
+
+select ename from emp1
+where ename like 'H%';
+
+ENAME
+----------
+Hrishikesh
+.........................................................................
+10
+List all the emps except 'PRESIDENT' & 'MGR" in asc order of Salaries.(JOA,ANALY MENTION IN RECORDS)
+
+
+select ename from emp1
+where designation not in('Joa','Analyst')
+order by salary;
+
+
+ENAME
+----------
+Ramesh
+Rohan
+mahesh
+sumit
+tanmay
+Soham
+Hrishikesh

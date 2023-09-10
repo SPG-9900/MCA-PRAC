@@ -1,0 +1,35 @@
+Importing Excel files into R using readxl package.
+Installing and loading xlsx package
+
+install.packages("xlsx")
+library("xlsx")
+
+install.packages("readxl")
+library("readxl")
+
+dataset <- read.csv("F:\\MET\\Naive_Bayes_TrainingSet.csv", 
+                header= TRUE, 
+                stringsAsFactors = TRUE)
+
+write.xlsx(x = dataset, file = "F:\\MET\\f1.xlsx")
+
+d1 <- read_excel("F:\\MET\\f1.xlsx")
+
+head(d1)
+==================
+
+
+
+
+
+Specify sheet with a number or name
+# Specify sheet by its name
+d3 <- read_excel("my_file.xlsx", sheet = "data")
+  
+# Specify sheet by its index
+ d4 <- read_excel("my_file.xlsx", sheet = 2)
+
+head(d3)
+
+=====
+

@@ -1,0 +1,53 @@
+airquality = read.csv('airquality.csv',header=TRUE, sep=",")
+
+str(airquality)
+
+head(airquality, n=3)
+
+summary(data)
+
+library("graphics")
+
+plot(airquality$Ozone)
+
+plot(airquality$Ozone, airquality$Wind)
+
+plot(airquality)
+
+# points and lines 
+plot(airquality$Ozone, type= "b")
+
+# high density vertical lines.
+plot(airquality$Ozone, type= "h")
+
+#label and titles
+plot(airquality$Ozone, xlab = 'ozone Concentration', ylab = 'No of Instances', main = 'Ozone levels in NY city', col = 'green')
+
+# Horizontal bar plot
+barplot(airquality$Ozone, main = 'Ozone Concenteration in air',xlab = 'ozone levels', col= 'green',horiz = TRUE)
+
+# Vertical bar plot
+barplot(airquality$Ozone, main = 'Ozone Concenteration in air',xlab = 'ozone levels', col='red',horiz = FALSE)
+
+hist(airquality$Solar.R)
+
+hist(airquality$Solar.R, main = 'Solar Radiation values in air',xlab = 'Solar rad.', col='red')
+
+#Single box plot
+boxplot(airquality$Solar.R)
+
+#Installing & Loading the package 
+
+install.packages('ggplot2') 
+library(ggplot2)
+#Loading the dataset
+attach(mtcars)
+# create factors with value labels 
+
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5),  
+                      labels=c("3gears", "4gears", "5gears"))  
+mtcars$am <- factor(mtcars$am,levels=c(0,1),  
+                    labels=c("Automatic","Manual"))  
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8),  
+                     labels=c("4cyl","6cyl","8cyl"))
+ggplot(data = mtcars, mapping = aes(x = wt, y = mpg)) + geom_point()

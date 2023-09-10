@@ -1,0 +1,39 @@
+df <- data.frame(Employee = c('Amit', 'Gopal', 'Meet', 'Suraj', 'Shree'), Salary = c(23000,41000,32000, 45000, 20000))
+
+print (df)
+
+write.csv(df, 'E:\\JUN2020\\DSR\\Employee.csv', row.names = FALSE)
+
+df <- read.csv(file="E:\\JUN2020\\DSR\\Employee.csv", header=TRUE, sep=",")
+
+df
+
+write.csv(df, 'E:\\JUN2020\\DSR\\Employee1.csv', append = FALSE, sep = ",")
+
+
+CSV Operations
+
+CSV operations are required to inspect the data once they have been loaded into the system. 
+R has several built-in functionalities to verify and inspect the data. 
+These operations provide complete information regarding the dataset.
+
+summary(df)
+The summary command provides us with column-wise statistics. 
+The numerical variable is described in a statistical way which includes statistical results such as mean, min, median, and max. 
+In the above example, two variables which are Employee and Salary are segregated and statistics for the numerical variable which is Salary is shown to us.
+
+View(df)
+View() command is used to open the dataset in another tab and verify it manually.
+
+str(df)
+Str function will provide users more details regarding the column of the dataset. In the below example we can see that the Employee variable has Factor as datatype and the Salary variable has int (integer) as the data type.
+
+nrow(df)		# to show the total number of rows in the dataset
+In many instances, we will need to see the total number of rows available in case of the big dataset, for which we can use the nrow() command.
+
+ncol(df)
+In a similar way to display the total number of columns, we can use ncol() command
+
+df[1:2,]	# to display first 2 rows of the data
+R allows us to display the desired number of rows with the help of below command. When their n number of rows available in the data set, we can specify the range of rows to be displayed.
+

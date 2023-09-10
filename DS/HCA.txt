@@ -1,0 +1,40 @@
+Dataset
+mtcars(motor trend car road test) comprises fuel consumption, performance and 10 aspects of automobile design for 32 automobiles. 
+It comes pre installed with dplyr package in R.
+
+# Installing the package
+install.packages("dplyr")
+	
+# Loading package
+library(dplyr)
+	
+# Summary of dataset in package
+head(mtcars)
+
+Performing Hierarchical clustering on Dataset
+Using Hierarchical Clustering algorithm on the dataset using hclust() which is pre installed in stats package when R is intalled.
+
+# Finding distance matrix
+distance_mat <- dist(mtcars, method = 'euclidean')
+distance_mat
+
+# Fitting Hierarchical clustering Model to training dataset
+set.seed(240) # Setting seed
+Hierar_cl <- hclust(distance_mat, method = "average")
+Hierar_cl
+
+# Plotting dendrogram
+plot(Hierar_cl)
+
+# Choosing no. of clusters
+# Cutting tree by height
+abline(h = 110, col = "green")
+
+# Cutting tree by no. of clusters
+fit <- cutree(Hierar_cl, k = 3 )
+fit
+
+table(fit)
+rect.hclust(Hierar_cl, k = 3, border = "green")
+
+So, Tree is cut where k = 3 and each category represents its number of clusters.

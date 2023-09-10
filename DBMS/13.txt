@@ -1,0 +1,79 @@
+Queries in mongoDB
+
+db.student.insert({ "stud_name": "Maya", "class": "TYBBA_CA", "percentage":80})
+
+db.student.insert({ "stud_name": "Pooja", "class": "TYBBA_CA", "percentage":50}) 
+
+db.student.insert({ "stud_name": "Ram", "class": "SYBBA_CA", "percentage":90}) 
+
+db.student.insert({"stud_name": "Vedant", "class": "SYBBA_CA", "percentage":85})
+
+db.student.insert({ "stud_name": "Supriya", "class": "TYBBA_CA", "percentage":56})
+
+db.student.insert({"stud_name": "Smita", "class": "TYBBA_CA", "percentage":90, "contact":9876543210})
+
+........................................................................................................
+Display the students from TYBBA_CA class.
+
+>db.student.find({"class":{$eq:"TYBBA_CA"}})
+
+..........................................................................................................
+
+Display Name of students not having TYBBA_CA class.
+
+>	db.student.find({"class":{$ne:"TYBBA_CA"}},{"_id":0, "stud_name":1})
+
+..........................................................................................................
+
+Display the students having percentage greater than 80
+
+>db.student.find({"percentage":{"$gt":80}})
+
+........................................................................................................
+
+Display the students having percentage either 80 or 90.
+
+>db.student.find({"percentage":{$in:[80,90]}})
+.................................................................................................... 
+Display students having percentage less than 80 and class TYBBA_CA
+
+>db.student.find({$and:[{"percentage":{"$lt":80}},{"class":"TYBBA_CA"}]})
+
+.......................................................................................................
+
+Display student details whose name start with “Ra” pattern.
+
+>db.student.find({"stud_name": /^Ra/},{“_id”:0})
+
+............................................................................................................
+
+Display student details whose name end with “ya” pattern.
+
+>db.student.find({"stud_name": /ya$/},{“_id”:0})
+
+............................................................................................................
+
+Counting the total numbers of documents
+
+>db.student.count()
+
+.........................................................................................................
+
+Update the percentage of the student whose name is “Maya”
+
+>db.student.updateOne({stud_name: "Pooja"}, {$set:{percentage:60}})
+
+.........................................................................................................
+
+delete the record of the student whose name is “Pooja”
+
+> db.student.deleteOne({name:"Mohit"})
+
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+.........................................................................................................
+
+Update
+
+> db.student.updateOne({"name":"Abhishek"},{$se{name:"Abhishek",class:"Fymca",age:23}},{upsert:true})
+

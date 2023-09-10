@@ -1,0 +1,22 @@
+
+create procedure add4 (no1 in number,no2 in number)
+is
+begin
+	DBMS_output.put_line("Addition:"||no1+no2);
+end;
+/
+...........................................................................
+create or replace procedure welcome(pname in varchar2)
+is
+begin
+	DBMS_output.put_line("Welcome:"||pname);
+end;
+/
+............................................................................
+create or replace function box(no1 in number,no2 in number) return n3 number
+is
+begin
+	n3 :=no1+no2;
+	return n3;
+end;
+/

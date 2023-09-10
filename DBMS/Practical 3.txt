@@ -1,0 +1,183 @@
+﻿ASSIGNMENT NO. 3
+
+(Emp_no, E_name, E_address, E_ph_no, Dept_no, Dept_name,Job_id, Designation , Salary)
+Write SQL statements for the following query.
+1. List the E_no, E_name, Salary of all employees working for MANAGER.
+2. Display all the details of the employee whose salary is more than the Sal of any IT PROFF..
+3. List the employees in the ascending order of Designations of those joined after 1981.
+4. List the employees along with their Experience and Daily Salary.
+5. List the employees who are either ‘CLERK’ or ‘ANALYST’ .
+6. List the employees who joined on 1-MAY-81, 3-DEC-81, 17-DEC-81,19-JAN-80 .
+7. List the employees who are working for the Deptno 10 or20.
+8. List the Enames those are starting with ‘S’ .
+9. Dislay the name as well as the first five characters of name(s) starting with ‘H’
+10. List all the emps except ‘PRESIDENT’ & ‘MGR” in asc order of Salaries.
+=================================================================================================
+    CREATE TABLE EMPLOYEE(
+    EMP_NO INT PRIMARY KEY NOT NULL,
+    ENAME VARCHAR2(10),
+    E_ADDRESS VARCHAR2(10),
+    E_PH NUMBER(10),
+    DEPT_NO VARCHAR(3),
+    DEPT_NAME VARCHAR(5),
+    DESIGNATION VARCHAR(5),
+    SALARY NUMBER(5),
+    DOJ DATE
+   );
+
+Table created.
+
+INSERT INTO EMPLOYEE VALUES(1,'RANJIT','DELHI',778889944,'D1','MNG','HR',87550,'12-JAN-2000');
+INSERT INTO EMPLOYEE VALUES(2,'SUMAN','GAYA',668889944,'D2','IT','TECH',77550,'2-FEB-1999');
+INSERT INTO EMPLOYEE VALUES(3,'ROHIT','PATNA',228889944,'D1','IT','TECH',77550,'10-NOV-2001');
+INSERT INTO EMPLOYEE VALUES(4,'MOHIT','BHOPAL',998889944,'D3','MECH','SALE',67550,'1-DEC-2000');
+INSERT INTO EMPLOYEE VALUES(5,'SURAJ','NASIK',775589944,'D2','ADMIN','JOA',57550,'2-FEB-2000');
+INSERT INTO EMPLOYEE VALUES(6,'JEETSH','SURAT',772289944,'D1','ADMIN','ADM',97550,'23-OCT-2000');
+
+
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         2 SUMAN      GAYA        668889944 D2  IT    TECH       77550 02-FEB-99
+         3 ROHIT      PATNA       228889944 D1  IT    TECH       77550 10-NOV-01
+         4 MOHIT      BHOPAL      998889944 D3  MECH  SALE       67550 01-DEC-00
+         5 SURAJ      NASIK       775589944 D2  ADMIN JOA        57550 02-FEB-00
+         6 JEETSH     SURAT       772289944 D1  ADMIN ADM        97550 23-OCT-00
+
+6 rows selected.
+
+=====================================================================================
+
+    SELECT EMP_NO, ENAME, SALARY
+    FROM EMPLOYEE
+    WHERE DEPT_NAME='MNG';
+
+    EMP_NO ENAME          SALARY
+---------- ---------- ----------
+         1 RANJIT          87550
+
+====================================================================================
+
+   SELECT * FROM EMPLOYEE
+   WHERE SALARY>(SELECT AVG(SALARY) FROM EMPLOYEE);
+
+     EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         6 JEETSH     SURAT       772289944 D1  ADMIN ADM        97550 23-OCT-00
+
+=====================================================================================
+
+    SELECT * FROM EMPLOYEE
+    WHERE SALARY>ALL(SELECT AVG(SALARY) FROM EMPLOYEE WHERE DEPT_NAME='IT');
+
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         6 JEETSH     SURAT       772289944 D1  ADMIN ADM        97550 23-OCT-00
+
+
+=====================================================================================
+     SELECT * FROM EMPLOYEE WHERE
+     DOJ>('1-JAN-2000') ORDER BY DESIGNATION ASC;
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         6 JEETSH     SURAT       772289944 D1  ADMIN ADM        97550 23-OCT-00
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         5 SURAJ      NASIK       775589944 D2  ADMIN JOA        57550 02-FEB-00
+         4 MOHIT      BHOPAL      998889944 D3  MECH  SALE       67550 01-DEC-00
+         3 ROHIT      PATNA       228889944 D1  IT    TECH       77550 10-NOV-01
+
+======================================================================================
+
+
+    SELECT EMP_NO,ENAME,DOJ,
+    MONTHS_BETWEEN(SYSDATE,DOJ) EXPERIENCE,
+    (SALARY/30) DAILY_SALARY
+    FROM EMPLOYEE;
+
+    EMP_NO ENAME      DOJ       EXPERIENCE DAILY_SALARY
+---------- ---------- --------- ---------- ------------
+         1 RANJIT     12-JAN-00   269.4175   2918.33333
+         2 SUMAN      02-FEB-99  280.74008         2585
+         3 ROHIT      10-NOV-01 247.482016         2585
+         4 MOHIT      01-DEC-00 258.772338   2251.66667
+         5 SURAJ      02-FEB-00  268.74008   1918.33333
+         6 JEETSH     23-OCT-00 260.062661   3251.66667
+
+6 rows selected.
+
+===================================================================================
+
+    SELECT * FROM EMPLOYEE
+    WHERE DESIGNATION='TECH'
+    OR DESIGNATION='JOA';
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         2 SUMAN      GAYA        668889944 D2  IT    TECH       77550 02-FEB-99
+         3 ROHIT      PATNA       228889944 D1  IT    TECH       77550 10-NOV-01
+         5 SURAJ      NASIK       775589944 D2  ADMIN JOA        57550 02-FEB-00
+
+=====================================================================================
+    SELECT * FROM EMPLOYEE
+    WHERE DOJ IN ('2-FEB-2000','10-NOV-2000','01-DEC-2000');
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         4 MOHIT      BHOPAL      998889944 D3  MECH  SALE       67550 01-DEC-00
+         5 SURAJ      NASIK       775589944 D2  ADMIN JOA        57550 02-FEB-00
+
+======================================================================================
+    SELECT * FROM EMPLOYEE
+    WHERE DEPT_NO IN('D1','D2');
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         2 SUMAN      GAYA        668889944 D2  IT    TECH       77550 02-FEB-99
+         3 ROHIT      PATNA       228889944 D1  IT    TECH       77550 10-NOV-01
+         5 SURAJ      NASIK       775589944 D2  ADMIN JOA        57550 02-FEB-00
+         6 JEETSH     SURAT       772289944 D1  ADMIN ADM        97550 23-OCT-00
+
+=======================================================================================
+
+    SELECT ENAME FROM EMPLOYEE
+    WHERE ENAME LIKE 'S%';
+
+ENAME
+----------
+SUMAN
+SURAJ
+
+=======================================================================================
+
+ SELECT * FROM EMPLOYEE WHERE ENAME LIKE 'R%';
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         3 ROHIT      PATNA       228889944 D1  IT    TECH       77550 10-NOV-01
+
+
+==========================================================================================
+    SELECT * FROM EMPLOYEE WHERE
+    DEPT_NAME NOT IN ('HR','JOA') ORDER BY SALARY ASC;
+
+    EMP_NO ENAME      E_ADDRESS        E_PH DEP DEPT_ DESIG     SALARY DOJ
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+         5 SURAJ      NASIK       775589944 D2  ADMIN JOA        57550 02-FEB-00
+         4 MOHIT      BHOPAL      998889944 D3  MECH  SALE       67550 01-DEC-00
+         2 SUMAN      GAYA        668889944 D2  IT    TECH       77550 02-FEB-99
+         3 ROHIT      PATNA       228889944 D1  IT    TECH       77550 10-NOV-01
+         1 RANJIT     DELHI       778889944 D1  MNG   HR         87550 12-JAN-00
+         6 JEETSH     SURAT       772289944 D1  ADMIN ADM        97550 23-OCT-00
+
+===========================================================================================
+
+
+
+

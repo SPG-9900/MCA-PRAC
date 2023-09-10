@@ -1,0 +1,114 @@
+1.inner join
+2.outer join
+3.natural join.
+create table sailor(sid int primary key, sname varchar(20), rating int, age int)
+create table boats (bid int primary key, bname varchar(20), color varchar(20))
+create table reserve(sid int references sailor(sid), bid int references boats(bid), day date)
+
+
+1. Find all information of sailors who have reserved boat number 101
+select *
+from sailor s
+left join reserve r on s.sid=r.sid
+where r.bid=101
+
+       SID SNAME                    RATING        AGE        SID        BID  DAY
+---------- -------------------- ---------- ---------- ---------- ----------  ---------
+
+       101 Jhon                          8         		32        101        101   14-JAN-23
+      104 Wood                         9         		21        104        101   18-JAN-23
+
+...................................................................................................
+2. Find the name of boat reserved by Bob.
+SELECT b.bname
+FROM sailor s
+JOIN reserve r ON s.sid = r.sid
+JOIN boats b ON r.bid = b.bid
+WHERE s.sname = 'Bob';
+
+BNAME
+--------------------
+Big boat
+Small_ship
+Small_ship
+.........................................................................................
+3.Find the names of sailors who have reserved a red boat, and list in the order of age
+
+SELECT s.sname
+FROM sailor s
+JOIN reserve r ON s.sid = r.sid
+JOIN boats b ON r.bid = b.bid
+WHERE b.color = 'red'
+order by age';
+
+SNAME
+-----------
+Bob
+..........................................................
+4.Find the names of sailors who have reserved at least one boat.
+SELECT distinct s.sname
+FROM sailor s
+LEFT JOIN reserve r ON s.sid = r.sid
+
+SNAME
+--------------------
+Wood
+Bob
+Jhon
+David
+..............................................................
+5. Find the ids and names of sailors who have reserved two different boats on the same day.
+SELECT s.sid, s.sname
+FROM sailor s
+JOIN reserve r1 ON s.sid = r1.sid
+JOIN reserve r2 ON s.sid = r2.sid AND r1.day = r2.day AND r1.bid <> r2.bid
+       SID SNAME
+---------- --------------------
+       101 Jhon
+       102 Bob
+       101 Jhon
+       102 Bob
+...........................................................................
+6. Find the ids of sailors who have reserved a red boat or a green boat.
+select distinct sailor.sid,sname from sailor,boats,reserve where boats.bid=reserve.bid and sailor.sid=reserve.sid and color='red' or color='green'
+       SID SNAME
+---------- --------------------
+       102 Bob
+       103 David
+       101 Jhon
+       104 Wood
+..........................................................................
+7. Find the name and the age of the youngest sailor.
+SELECT s.sname, s.age
+FROM sailor s
+WHERE s.age = (SELECT MIN(age) FROM sailor)
+SNAME                       AGE
+-------------------- ----------
+Wood                         21
+...........................................................................
+8. Count the number of different sailor names.
+SELECT COUNT(DISTINCT s.sname)
+FROM sailor s;
+COUNT(DISTINCTS.SNAME)
+----------------------
+                     4
+.........................................................................
+9. Find the average age of sailors for each rating level.
+SELECT rating, AVG(age) AS average_age
+FROM sailor
+GROUP BY rating;
+
+    RATING AVERAGE_AGE
+---------- -----------
+         8          29
+         7          46
+         9          21
+..........................................................................
+10. Find the average age of sailors for each rating level that has at least two sailors.
+SELECT rating, AVG(age) AS average_age
+FROM sailor
+GROUP BY rating
+HAVING COUNT(sid) >= 2
+    RATING AVERAGE_AGE
+---------- -----------
+         8          29

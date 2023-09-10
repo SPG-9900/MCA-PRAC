@@ -1,0 +1,210 @@
+Write a menu driven program to perform following operations on singly linked list: Create, Insert, Delete, and Display 
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+struct node *head=NULL;
+
+void create()
+{
+    int n;
+    struct node *newnode,*temp;
+    printf("Enter the number of nodes:");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        newnode=(struct node *)malloc(sizeof(struct node));
+        printf("Enter the data for node %d:",i+1);
+        scanf("%d",&newnode->data);
+        newnode->next=NULL;
+        if(head==NULL)
+        {
+            head=newnode;
+            temp=newnode;
+        }
+        else
+        {
+            temp->next=newnode;
+            temp=newnode;
+        }
+    }
+}
+
+void insert_beg()
+{
+    struct node *newnode;
+    newnode=(struct node *)malloc(sizeof(struct node));
+    printf("Enter the data to insert at the beginning:");
+    scanf("%d",&newnode->data);
+    newnode->next=head;
+    head=newnode;
+}
+
+void insert_end()
+{
+    struct node *newnode,*temp;
+    newnode=(struct node *)malloc(sizeof(struct node));
+    printf("Enter the data to insert at the end:");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    if(head==NULL)
+    {
+        head=newnode;
+        temp=newnode;
+    }
+    else
+    {
+        temp=head;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+
+void insert_mid()
+{
+    struct node *newnode,*temp;
+    int pos,i=1;
+    newnode=(struct node *)malloc(sizeof(struct node));
+    printf("Enter the data to insert in the middle:");
+    scanf("%d",&newnode->data);
+    printf("Enter the position to insert:");
+    scanf("%d",&pos);
+    temp=head;
+    while(i<pos-1)
+    {
+        temp=temp->next;
+        i++;
+    }
+    newnode->next=temp->next;
+    temp->next=newnode;
+}
+
+void delete_beg()
+{
+    struct node *temp;
+    if(head==NULL)
+    {
+        printf("List is empty");
+    }
+    else
+    {
+        temp=head;
+        head=head->next;
+        free(temp);
+    }
+}
+
+void delete_end()
+{
+    struct node *temp1,*temp2;
+    if(head==NULL)
+    {
+        printf("List is empty");
+    }
+    else if(head->next==NULL)
+    {
+        temp1=head;
+        head=NULL;
+        free(temp1);
+    }
+    else
+    {
+        temp1=head;
+        temp2=NULL;
+        while(temp1->next!=NULL)
+        {
+            temp2=temp1;
+            temp1=temp1->next;
+        }
+        temp2->next=NULL;
+        free(temp1);
+    }
+}
+
+void delete_mid()
+{
+    struct node *temp1,*temp2;
+    int pos,i=1;
+    printf("Enter the position to delete:");
+    scanf("%d",&pos);
+    temp1=head;
+    while(i<pos)
+    {
+        temp2=temp1;
+        temp1=temp1->next;
+        i++;
+    }
+    temp2->next=temp1->next;
+    free(temp1);
+}
+void display()
+{
+    struct node *temp;
+    if(head==NULL)
+    {
+        printf("List is empty");
+    }
+    else
+    {
+        temp=head;
+        while(temp!=NULL)
+        {
+            printf("%d ",temp->data);
+            temp=temp->next;
+        }
+    }
+}
+
+
+
+int main()
+{
+int choice;
+while(1)
+{
+printf("\n1.Create\n2.Insert at the beginning\n3.Insert at the end\n4.Insert in the middle\n5.Delete at the beginning\n6.Delete at the end\n7.Delete in the middle\n8.Display\n9.Exit\n");
+printf("Enter your choice:");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:
+create();
+break;
+case 2:
+insert_beg();
+break;
+case 3:
+insert_end();
+break;
+case 4:
+insert_mid();
+break;
+case 5:
+delete_beg();
+break;
+case 6:
+delete_end();
+break;
+case 7:
+delete_mid();
+break;
+case 8:
+display();
+break;
+case 9:
+exit(0);
+default:
+printf("Invalid choice");
+}
+}
+return 0;
+}

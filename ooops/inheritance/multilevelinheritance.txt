@@ -1,0 +1,30 @@
+#include <iostream>
+
+class Shape {
+    public:
+        void draw() {
+            std::cout << "Drawing shape..." << std::endl;
+        }
+};
+
+class Circle : public Shape {
+    public:
+        void drawCircle() {
+            std::cout << "Drawing circle..." << std::endl;
+        }
+};
+
+class ColoredCircle : public Circle {
+    public:
+        void fill() {
+            std::cout << "Filling color..." << std::endl;
+        }
+};
+
+int main() {
+    ColoredCircle myCircle;
+    myCircle.draw(); // inherited from Shape class
+    myCircle.drawCircle(); // inherited from Circle class
+    myCircle.fill(); // defined in ColoredCircle class
+    return 0;
+}

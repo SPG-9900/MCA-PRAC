@@ -1,0 +1,18 @@
+install.packages("rpart")
+install.packages("rpart.plot")
+
+# for decision tree model
+library (rpart)
+library(rpart.plot) # for decision tree plot drawing
+
+data("iris") # we will use iris dataset for classification
+View(iris) # we can see dataset as table
+
+summary(iris)
+
+tree <- rpart(Species ~ Sepal.Length + Sepal.Width, iris)
+a <- data.frame(Sepal.Length=c(6.3), Sepal.Width=c(3.3))
+result <- predict(tree,a)
+print(result)
+rpart.plot(tree)
+rpart.predict(tree)

@@ -1,0 +1,212 @@
+Assignment No. 05
+
+LAB PRACTICE ASSIGNMENT:
+Consider the following schema:
+ Sailors (sid, sname, rating, age)
+ Boats (bid, bname, color)
+ Reserves (sid, bid, day(date))
+1. Find all information of sailors who have reserved boat number 101.
+2. Find the name of boat reserved by Bob.
+3. Find the names of sailors who have reserved a red boat, and list in the order of age.
+4. Find the names of sailors who have reserved at least one boat.
+5. Find the ids and names of sailors who have reserved two different boats on the same
+day.
+6. Find the ids of sailors who have reserved a red boat or a green boat.
+7. Find the name and the age of the youngest sailor.
+8. Count the number of different sailor names.
+9. Find the average age of sailors for each rating level.
+10. Find the average age of sailors for each rating level that has at least two sailors.
+
+
+ CREATE  TABLE SAILOR(
+ SID INT PRIMARY KEY NOT NULL,
+ SNAME VARCHAR2(10),
+ RATING INT,
+ AGE INT);
+
+CREATE TABLE BOATS(
+BID INT PRIMARY KEY NOT NULL,
+BNAME VARCHAR2(10),
+COLOR VARCHAR2(10)
+);
+
+
+ CREATE TABLE RESERVES(
+ SID INT REFERENCES SAILOR,
+ BID INT REFERENCES BOATS,
+ DAY DATE
+ );
+
+INSERT INTO SAILOR VALUES(1,'AMAN',10,25);
+INSERT INTO SAILOR VALUES(2,'RAJAN',9,36);
+INSERT INTO SAILOR VALUES(3,'MANOJ',8,29);
+INSERT INTO SAILOR VALUES(4,'ALOK',10,30);
+INSERT INTO SAILOR VALUES(5,'RANJIT',9,34);
+
+ SELECT * FROM SAILOR;
+
+   SID SNAME          RATING        AGE
+------ ---------- ---------- ----------
+     1 AMAN               10         25
+     2 RAJAN               9         36
+     3 MANOJ               8         29
+     4 ALOK               10         30
+     5 RANJIT              9         34
+
+INSERT INTO BOATS VALUES(101,'ALPHA','RED');
+INSERT INTO BOATS VALUES(102,'BRAVO','BLACK');
+INSERT INTO BOATS VALUES(103,'CHARLI','BROWN');
+INSERT INTO BOATS VALUES(104,'DELTA','RED');
+INSERT INTO BOATS VALUES(105,'GOAT','BLUE');
+
+ SELECT * FROM BOATS ;
+
+   BID BNAME      COLOR
+------ ---------- --------
+   101 ALPHA      RED
+   102 BRAVO      BLACK
+   103 CHARLI     BROWN
+   104 DELTA      RED
+   105 GOAT       BLUE
+
+
+INSERT INTO RESERVES VALUES(1,101,'12-JAN-2022');
+INSERT INTO RESERVES VALUES(2,102,'01-JUN-2022');
+INSERT INTO RESERVES VALUES(3,102,'21-FEB-2022');
+INSERT INTO RESERVES VALUES(1,101,'31-JAN-2022');
+INSERT INTO RESERVES VALUES(3,103,'12-AUG-2022');
+
+ SELECT * from RESERVES;
+
+   SID        BID DAY
+------ ---------- ---------
+     1        101 12-JAN-22
+     2        102 01-JUN-22
+     3        102 21-FEB-22
+     1        101 31-JAN-22
+     3        103 12-AUG-22
+
+
+============================================
+1. Find all information of sailors who have reserved boat number 101.
+
+SELECT SAILOR.*
+FROM SAILOR, RESERVES
+WHERE SAILOR.SID = RESERVES.SID AND RESERVES.BID = '101'
+   SID SNAME          RATING        AGE
+------ ---------- ---------- ----------
+     1 AMAN               10         25
+     1 AMAN               10         25
+
+=============================================
+2. Find the name of boat reserved by Bob.
+
+
+ SELECT BNAME
+ FROM SAILOR, BOATS, RESERVES
+ WHERE SAILOR.SID=RESERVES.SID AND RESERVES.BID=BOATS.BID AND
+ SNAME='AMAN';
+
+
+BNAME
+----------
+ALPHA
+ALPHA
+
+===============================================
+3. Find the names of sailors who have reserved a red boat, and list in the order of age.
+
+SELECT S.SNAME,S.AGE
+FROM SAILOR S, RESERVES R, BOATS B
+WHERE S.SID=R.SID AND R.BID=B.BID AND COLOR='RED'
+ORDER BY S.AGE;
+
+SNAME             AGE
+---------- ----------
+AMAN               25
+AMAN               25
+
+================================================
+4.  Find the names of sailors who have reserved at least one boat.
+
+
+ SELECT SNAME
+ FROM SAILOR, RESERVES 
+ WHERE SAILOR.SID=RESERVES.SID;
+
+
+SNAME
+--------
+AMAN
+RAJAN
+MANOJ
+AMAN
+MANOJ
+
+===============================================
+5. Find the ids and names of sailors who have reserved two different boats on the same DAY.
+
+SELECT DISTINCT S.sid, S.sname
+FROM Sailor S, Reserves R1, Reserves R2
+WHERE S.sid = R1.sid AND S.sid = R2.sid
+AND R1.day = R2.day AND R1.bid <> R2.bid
+===============================================
+6. Find the ids of sailors who have reserved a red boat or a green boat.
+
+SELECT S.SNAME
+FROM SAILOR S, RESERVES R, BOATS B
+WHERE S.SID=R.SID
+AND R.BID=B.BID
+AND (B.COLOR='RED' OR B.COLOR='GREEN');
+
+
+SNAME
+-------
+AMAN
+AMAN
+
+===============================================
+7. Find the name and the age of the youngest sailor.
+
+ SELECT S.SNAME,S.AGE
+ FROM SAILOR S
+ WHERE S.AGE<=ALL(SELECT AGE FROM SAILOR);
+
+
+SNAME             AGE
+---------- ----------
+AMAN               25
+================================================
+8. Count the number of different sailor names.
+
+ SELECT COUNT(DISTINCT S.SNAME)
+ FROM SAILOR S;
+
+COUNT(DISTINCTS.SNAME)
+----------------------
+                     5
+===============================================
+9. Find the average age of sailors for each rating level.
+
+ SELECT RATING, AVG(AGE)
+ FROM SAILOR
+ GROUP BY RATING;
+
+RATING   AVG(AGE)
+------ ----------
+     8         29
+     9         35
+    10       27.5
+
+===============================================
+10. Find the average age of sailors for each rating level that has at least two sailors.
+
+ SELECT RATING, AVG(AGE)
+ FROM SAILOR
+ GROUP BY RATING 
+ HAVING COUNT(*)>1;
+   RATING   AVG(AGE)
+--------- ----------
+        9         35
+       10       27.5
+===============================================

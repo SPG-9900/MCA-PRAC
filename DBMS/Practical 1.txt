@@ -1,0 +1,80 @@
+ASSIGNMENT NO. 01
+
+========================================================================
+
+LAB PRACTICE ASSIGNMENT:
+1. Create a table EMPLOYEE with following schema:
+(Emp_no, E_name, E_address, E_ph_no, Dept_no, Dept_name,Job_id , Salary)
+2. Add a new column; HIREDATE to the existing relation.
+3. Change the datatype of JOB_ID from char to varchar2.
+4. Change the name of column/field Emp_no to E_no.
+5. Modify the column width of the job field of emp table
+
+=========================================================================
+  CREATE TABLE EMPLOYEE(
+  EMP_NO INT PRIMARY KEY NOT NULL,
+  E_NAME VARCHAR2(10),
+  E_ADDRESS VARCHAR2(10),
+  E_PH_NO NUMBER(10),
+  DEPT_NO VARCHAR2(3),
+  DEPT_NAME VARCHAR2(5),
+  JOB_ID CHAR(5),
+  SAL NUMBER(5)
+  );
+
+Table created.
+========================================================================
+
+ ALTER TABLE EMPLOYEE
+ ADD HIREDATE DATE;
+
+Table altered.
+
+
+========================================================================
+
+
+ ALTER TABLE EMPLOYEE
+ MODIFY JOB_ID VARCHAR2(5);
+
+Table altered.
+
+
+========================================================================
+
+ ALTER TABLE EMPLOYEE 
+ RENAME COLUMN EMP_NO TO E_NO;
+
+Table altered.
+
+========================================================================
+
+ ALTER TABLE EMPLOYEE
+ MODIFY JOB_ID VARCHAR2(6);
+
+Table altered.
+
+
+========================================================================
+
+DESC EMPLOYEE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ E_NO                                      NOT NULL NUMBER(38)
+ E_NAME                                             VARCHAR2(10)
+ E_ADDRESS                                          VARCHAR2(10)
+ E_PH_NO                                            NUMBER(10)
+ DEPT_NO                                            VARCHAR2(3)
+ DEPT_NAME                                          VARCHAR2(5)
+ JOB_ID                                             VARCHAR2(6)
+ SAL                                                NUMBER(5)
+ HIREDATE                                           DATE
+
+
+=========================================================================
+=========================================================================
+
+
+
+
+

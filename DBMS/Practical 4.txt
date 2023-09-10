@@ -1,0 +1,35 @@
+LAB PRACTICE ASSIGNMENT  4:
+1. Display all the dept numbers available with the dept and emp tables avoiding duplicates.
+2. Display all the dept numbers available with the dept and emp tables.
+3. Display all the dept numbers available in emp and not in dept tables and vice versa.
+
+==================================================================================================
+  SELECT DNO FROM DEPARTMENT UNION 
+  SELECT DNO FROM EMPLOYEE;
+
+       DNO
+----------
+         1
+         2
+         3
+==========================================================
+
+
+  SELECT DNO FROM DEPARTMENT
+  WHERE DNO NOT IN (SELECT DNO FROM EMPLOYEE);
+
+       DNO
+----------
+         4
+==========================================================
+
+
+  SELECT DNO FROM EMPLOYEE
+  WHERE DNO
+  NOT IN (SELECT DNO FROM DEPARTMENT);
+
+no rows selected
+
+
+=============================================================
+=============================================================

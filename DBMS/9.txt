@@ -1,0 +1,73 @@
+1.cursor without parameter:
+declare
+	cursor empdetail is select * from emp2;
+	empd emp2%rowtype;
+	
+begin	
+	open empdetail;
+	DBMS_output.put_line('Emp Data:');
+	loop
+	fetch empdetail into empd;
+	exit when empdetail%notfound;
+		DBMS_output.put_line('Eno:'||empd.eid);
+		DBMS_output.put_line('Name'||empd.ename);
+		DBMS_output.put_line('Salary'||empd.salary);
+	end loop;
+	close empdetail;
+end;
+/
+
+output:
+Emp Data:
+Eno:1
+NameMohit
+Salary20000
+Eno:2
+Namesumit
+Salary20000
+Eno:3
+Namerohan
+Salary20000
+Eno:4
+Namemohan
+Salary20000
+Eno:5
+Namekhushi
+Salary12000
+Eno:6
+Namesoham
+Salary14000
+Eno:7
+Namerahul
+Salary24000
+
+PL/SQL procedure successfully completed.
+.............................................................................
+
+
+
+
+
+
+2.cursor with parameter:
+create or replace procedure e(eid in number)
+is
+	cursor c1(eno number) is select * from emp2 where eid=eno;
+	empd emp2%rowtype;
+	
+begin	
+	
+	DBMS_output.put_line('Emp Data:');
+	for empd in c1(eid)
+	loop
+		DBMS_output.put_line('Eno:'||empd.eid);
+		DBMS_output.put_line('Name'||empd.ename);
+		DBMS_output.put_line('Salary'||empd.salary);
+	end loop;
+output:
+SQL> exec e(1);
+Emp Data:
+Eno:1
+NameMohit
+Salary20000
+

@@ -1,0 +1,28 @@
+
+import datetime
+from datetime import datetime
+import RPi.GPIO as GPIO
+import time
+import decimal
+import http.client as httplib, urllib
+from urllib.request import urlopen
+import time
+import subprocess
+import sys
+import Adafruit_DHT
+import json
+
+
+TS =urllib.request.urlopen("https://api.thingspeak.com/channels/1917476/feeds.json?api_key=*************")
+json_object= json.load(TS)
+entries = json_object["feeds"]
+for entry in entries:
+    print (entry["created_at"]+" "+entry["field1"]+" "+entry["field2"])
+TS.close()    
+
+
+
+  
+
+    
+

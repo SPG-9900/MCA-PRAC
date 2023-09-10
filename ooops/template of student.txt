@@ -1,0 +1,79 @@
+//create template of student
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+template<class T>
+class Student {
+public:
+    // Constructor
+    Student(T id, string name) {
+        this->id = id;
+        this->name = name;
+    }
+
+    // Getter functions
+    T getId() const {
+        return id;
+    }
+
+    string getName() const {
+        return name;
+    }
+
+    vector<T> getGrades() const {
+        return grades;
+    }
+
+    // Setter function
+    void addGrade(T grade) {
+        grades.push_back(grade);
+    }
+
+    // Calculate average grade
+    double getAverageGrade() const {
+        double sum = 0.0;
+        for (T grade : grades) {
+            sum += grade;
+        }
+        return (double)sum / grades.size();
+    }
+
+private:
+    T id;
+    string name;
+    vector<T> grades;
+};
+
+int main() {
+    // Example usage
+    Student<int> s1(1234, "John");
+    s1.addGrade(90);
+    s1.addGrade(85);
+    s1.addGrade(95);
+    cout << "Student " << s1.getName() << " with ID " << s1.getId() << endl;
+    cout << "Grades: ";
+    vector<int> grades = s1.getGrades();
+    for (int grade : grades) {
+        cout << grade << " ";
+    }
+    cout << endl;
+    cout << "Average grade: " << s1.getAverageGrade() << endl;
+
+    Student<double> s2(5678.0, "Jane");
+    s2.addGrade(3.5);
+    s2.addGrade(4.0);
+    s2.addGrade(3.7);
+    cout << "Student " << s2.getName() << " with ID " << s2.getId() << endl;
+    cout << "Grades: ";
+    vector<double> grades2 = s2.getGrades();
+    for (double grade : grades2) {
+        cout << grade << " ";
+    }
+    cout << endl;
+    cout << "Average grade: " << s2.getAverageGrade() << endl;
+
+    return 0;
+}

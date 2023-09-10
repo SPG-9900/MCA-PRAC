@@ -1,0 +1,30 @@
+#include <iostream>
+
+class Vehicle {
+    public:
+        void start() {
+            std::cout << "Starting vehicle..." << std::endl;
+        }
+};
+
+class Phone {
+    public:
+        void call() {
+            std::cout << "Making phone call..." << std::endl;
+        }
+};
+
+class SmartCar : public Vehicle, public Phone {
+    public:
+        void navigate() {
+            std::cout << "Navigating..." << std::endl;
+        }
+};
+
+int main() {
+    SmartCar myCar;
+    myCar.start(); // inherited from Vehicle class
+    myCar.call(); // inherited from Phone class
+    myCar.navigate(); // defined in SmartCar class
+    return 0;
+}

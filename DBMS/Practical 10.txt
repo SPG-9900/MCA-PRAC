@@ -1,0 +1,148 @@
+PROCEDURE PROGRAM FOR FACTORIAL OF NUMBER.
+
+
+ DECLARE  
+ num number;  
+ factorial number;        
+ FUNCTION fact(x number)  
+ RETURN number   
+ IS  
+ f number;  
+ BEGIN  
+ IF x=0 THEN  
+ f := 1;  
+ ELSE  
+ f := x * fact(x-1);  
+ END IF;  
+ RETURN f;  
+ END;      
+ BEGIN  
+ num:= 6;  
+ factorial := fact(num);  
+ dbms_output.put_line(' Factorial '|| num || ' is ' || factorial);  
+ END; 
+
+
+==================================================================================================
+
+CREATE TABLE CUSTOMER(CNO INT PRIMARY KEY NOT NULL,
+CNAME VARCHAR2(10), TOTAL NUMBER(5));
+
+
+SELECT * FROM CUSTOMER;
+
+       CNO CNAME           TOTAL
+---------- ---------- ----------
+         1 RANJIT          53455
+         2 RAJ             34545
+         3 SUMAN           45663
+         4 KUMAR           78674
+
+SQL> CREATE OR REPLACE FUNCTION TC
+  2  RETURN NUMBER IS TOTAL NUMBER(2):=0;
+  3  BEGIN
+  4  SELECT COUNT(*) INTO TOTAL FROM CUSTOMER;
+  5  RETURN TOTAL;
+  6  END;
+  7  /
+
+Function created.
+
+SQL> DECLARE
+  2  C NUMBER(2);
+  3  BEGIN
+  4  C:=TC();
+  5  DBMS_OUTPUT.PUT_LINE('TOTAL NO.OF CUSTOMER:'||C);
+  6  END;
+  7  /
+TOTAL NO.OF CUSTOMER:4
+
+PL/SQL procedure successfully completed.
+
+=====================================================================================================
+
+FIND MAX USING FUNCTION IN DBMS
+
+    DECLARE  
+       a number;  
+       b number;  
+       c number;  
+    FUNCTION findMax(x IN number, y IN number)   
+    RETURN number  
+    IS  
+        z number;  
+    BEGIN  
+       IF x > y THEN  
+          z:= x;  
+       ELSE  
+          Z:= y;  
+       END IF;  
+      
+       RETURN z;  
+    END;   
+    BEGIN  
+       a:= 23;  
+       b:= 45;  
+      
+       c := findMax(a, b);  
+       dbms_output.put_line(' Maximum of (23,45): ' || c);  
+    END;  
+    / 
+
+=============================================================================================================
+PROCEDURE CODE TO INSERT THE VALUES INTO THE TABLES.
+
+
+ CREATE TABLE CUSTOMER(CNO INT, CNAME VARCHAR2(10));
+
+Table created.
+
+SQL> INSERT INTO CUSTOMER VALUES(1,'RANJIT');
+
+1 row created.
+
+SQL> SELECT* FROM CUSTOMER;
+
+       CNO CNAME
+---------- ----------
+         1 RANJIT
+
+SQL> SET SERVEROUTPUT ON;
+SQL> CREATE OR REPLACE PROCEDURE CUST(CNO IN INT, CNAME IN VARCHAR2)
+  2  IS
+  3  BEGIN INSERT INTO CUSTOMER VALUES(CNO,CNAME);
+  4  END;
+  5  /
+
+Procedure created.
+
+SQL> BEGIN
+  2  CUST(2,'MEGHA');
+  3  DBMS_OUTPUT.PUT_LINE('RECORD INSERTED SUCCESSFULLY!!');
+  4  END;
+  5  /
+RECORD INSERTED SUCCESSFULLY!!
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM CUSTOMER;
+
+       CNO CNAME
+---------- ----------
+         1 RANJIT
+         2 MEGHA
+
+
+================================================================================================================
+================================================================================================================
+
+
+
+
+
+
+
+
+
+
+

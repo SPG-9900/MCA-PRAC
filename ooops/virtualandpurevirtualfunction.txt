@@ -1,0 +1,35 @@
+#include <iostream>
+
+// Base class
+class Shape {
+  public:
+    virtual double getArea() { // virtual function
+      std::cout << "Shape::getArea()" << std::endl;
+      return 0;
+    }
+    virtual double getPerimeter() = 0; // pure virtual function
+};
+
+// Derived class
+class Rectangle : public Shape {
+  private:
+    double width;
+    double height;
+  public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    double getArea() { // overridden virtual function
+      std::cout << "Rectangle::getArea()" << std::endl;
+      return width * height;
+    }
+    double getPerimeter() { // implemented pure virtual function
+      return 2 * (width + height);
+    }
+};
+
+int main() {
+  Shape* shape = new Rectangle(3, 4);
+  std::cout << "Area: " << shape->getArea() << std::endl;
+  std::cout << "Perimeter: " << shape->getPerimeter() << std::endl;
+  delete shape;
+  return 0;
+}

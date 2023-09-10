@@ -1,0 +1,81 @@
+//Hybrid Inheritance
+#include<iostream>
+#include<conio.h>
+
+using namespace std; 
+
+class emp {
+protected:
+    int exp, eid;
+    char name[20];
+public:
+    void getEmp() {
+        cout << "Enter the emp id: ";
+        cin >> eid;
+        cout << "Enter the emp name: ";
+        cin >> name;
+        cout << "Enter the experience : ";
+        cin >> exp;
+    }
+    void showEmp() {
+        cout << "\nEmployee id :" << eid;
+        cout << "\nEmployee Name :" << name;
+        cout << "\nEmployee exp :" << exp;
+    }
+};
+
+class company : virtual public emp {
+private:
+    char cname[20];
+public:
+    void getC() {
+        cout << "\nEnter the Company name : ";
+        cin >> cname;
+    }
+    void showC() {
+        cout << "\nCompany name : " << cname;
+    }
+};
+
+class salary : virtual public emp {
+private:
+    float sal, ta, da, hra;
+public:
+    void getsal() {
+        cout << "\nEnter the basic salary : ";
+        cin >> sal;
+    }
+    void showSal() { // Added missing return type
+        ta = sal * 0.1;
+        da = sal * 0.4;
+        hra = sal * 0.2;
+        cout << "\nBasic salary: " << sal; // Corrected typo in output
+        cout << "\nTravelling allowances: " << ta;
+        cout << "\nDa: " << da;
+        cout << "\nHRA: " << hra;
+        cout << "\nGross salary : " << sal + ta + hra + da;
+    }
+};
+
+class promotion : public company, public salary {
+public:
+    void checkPromotion() {
+        if (exp > 5) {
+            cout << "\nEligible for promotion.";
+        }
+        else {
+            cout << "\nNot Eligible for promotion.";
+        }
+    }
+};
+
+int main() {
+    promotion p;
+    p.getEmp();
+    p.getC();
+    p.getsal();
+    cout << "\nPromotion Eligibility------------\n\n";
+    p.checkPromotion();
+    getch();
+    return 0;
+}

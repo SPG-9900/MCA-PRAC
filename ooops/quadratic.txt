@@ -1,0 +1,39 @@
+#include <iostream>
+
+class quadratic {
+private:
+    double a;
+    double b;
+    double c;
+
+public:
+    quadratic() : a(0), b(0), c(0) {}
+    quadratic(double a_, double b_, double c_) : a(a_), b(b_), c(c_) {}
+
+    friend std::ostream& operator<<(std::ostream& os, const quadratic& q) {
+        os << q.a << "x^2 + " << q.b << "x + " << q.c;
+        return os;
+    }
+
+    friend std::istream& operator>>(std::istream& is, quadratic& q) {
+        std::cout << "Enter a: ";
+        is >> q.a;
+        std::cout << "Enter b: ";
+        is >> q.b;
+        std::cout << "Enter c: ";
+        is >> q.c;
+        return is;
+    }
+};
+
+int main() {
+    quadratic q1;
+    std::cin >> q1;
+    std::cout << "q1 = " << q1 << std::endl;
+
+    quadratic q2;
+    std::cin>> q2;
+    std::cout << "q2 = " << q2 << std::endl;
+
+    return 0;
+}

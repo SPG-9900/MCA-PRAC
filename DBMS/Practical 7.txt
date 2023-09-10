@@ -1,0 +1,277 @@
+
+SQL> CREATE  TABLE SAILOR333(SID INT PRIMARY KEY NOT NULL,SNAME VARCHAR2(10), RATING INT,AGE INT);
+CREATE  TABLE SAILOR333(SID INT PRIMARY KEY NOT NULL,SNAME VARCHAR2(10), RATING INT,AGE INT)
+          
+
+SQL> CREATE  TABLE SAILOR46(SID INT PRIMARY KEY NOT NULL,SNAME VARCHAR2(10),RATING INT,AGE INT);
+
+Table created.
+
+SQL> CREATE TABLE BOATS46(BID INT PRIMARY KEY NOT NULL,BNAME VARCHAR2(10),COLOR VARCHAR2(10));
+
+Table created.
+
+SQL> CREATE TABLE RESERV46(SID INT REFERENCES SAILOR3,BID INT REFERENCES BOATS3,DAY DATE);
+
+Table created.
+
+SQL> INSERT INTO SAILOR46 VALUES(1,'AMAN',10,25);
+
+1 row created.
+
+SQL> INSERT INTO SAILOR46 VALUES(2,'RAJAN',9,36);
+
+1 row created.
+
+SQL> INSERT INTO SAILOR46 VALUES(3,'MANOJ',8,29);
+
+1 row created.
+
+SQL> INSERT INTO SAILOR46 VALUES(4,'ALOK',10,30);
+
+1 row created.
+
+SQL> INSERT INTO SAILOR46 VALUES(5,'RANJIT',9,34);
+
+1 row created.
+
+SQL>  SELECT * FROM SAILOR46;
+
+       SID SNAME          RATING        AGE
+---------- ---------- ---------- ----------
+         1 AMAN               10         25
+         2 RAJAN               9         36
+         3 MANOJ               8         29
+         4 ALOK               10         30
+         5 RANJIT              9         34
+
+SQL> INSERT INTO BOATS46 VALUES(101,'ALPHA','RED');
+
+1 row created.
+
+SQL> INSERT INTO BOATS46 VALUES(102,'BRAVO','BLACK');
+
+1 row created.
+
+SQL> INSERT INTO BOATS46 VALUES(103,'CHARLI','BROWN');
+
+1 row created.
+
+SQL> INSERT INTO BOATS46 VALUES(104,'DELTA','RED');
+
+1 row created.
+
+SQL> INSERT INTO BOATS46 VALUES(105,'GOAT','BLUE');
+
+1 row created.
+
+SQL>  SELECT * FROM BOATS46;
+
+       BID BNAME      COLOR
+---------- ---------- ----------
+       101 ALPHA      RED
+       102 BRAVO      BLACK
+       103 CHARLI     BROWN
+       104 DELTA      RED
+       105 GOAT       BLUE
+
+SQL> INSERT INTO RESERV46 VALUES(1,101,'12-JAN-2022');
+INSERT INTO RESERV46 VALUES(1,101,'12-JAN-2022')
+
+
+SQL> CREATE TABLE RESERV046(SID INT REFERENCES SAILOR46,BID INT REFERENCES BOATS46,DAY DATE);
+
+Table created.
+
+SQL> INSERT INTO RESERV046 VALUES(1,101,'12-JAN-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(1,101,'11-MAR-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(2,102,'01-JUN-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(3,102,'21-FEB-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(5,103,'31-JAN-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(4,104,'12-AUG-2022');
+
+1 row created.
+
+SQL>  SELECT * from RESERV046;
+
+       SID        BID DAY
+---------- ---------- ---------
+         1        101 12-JAN-22
+         1        101 12-JAN-22
+         2        102 01-JUN-22
+         3        102 21-FEB-22
+         1        101 31-JAN-22
+         3        103 12-AUG-22
+
+6 rows selected.
+
+
+1).SQL> SELECT *FROM SAILOR46 WHERE SID IN(SELECT SID FROM RESERV466 WHERE BID IN(SELECT BID FROM BOATS
+46 WHERE BID = '101'));
+
+       SID SNAME          RATING        AGE
+---------- ---------- ---------- ----------
+         1 AMAN               10         25
+
+SQL> SELECT BNAME
+  2   FROM BOATS46
+  3   WHERE BID IN(SELECT BID FROM RESERV466 WHERE SID IN(SELECT SID FROM SAILOR46 WHERE SNAME='ALOK
+'));
+
+no rows selected
+
+2).SQL> SELECT BNAME
+  2   FROM BOATS46
+  3   WHERE BID IN(SELECT BID FROM RESERV466 WHERE SID IN(SELECT SID FROM SAILOR46 WHERE SNAME='MANO
+J'));
+
+BNAME
+----------
+BRAVO
+CHARLI
+
+3).SQL> SELECT SNAME,AGE
+  2  FROM SAILOR46 WHERE SID IN(SELECT SID FROM RESERV466 WHERE BID IN(SELECT BID FROM BOATS46 
+  3  WHERE COLOR='RED'));
+
+SNAME             AGE
+---------- ----------
+AMAN               25
+
+4).SQL> SELECT DISTINCT s.sname FROM SAILOR46 s, reserves r WHERE s.sid = r.sid;
+
+SNAME
+----------
+AMAN
+MANOJ
+RAJAN
+
+
+SQL> SELECT * FROM SAILOR46;
+
+       SID SNAME          RATING        AGE
+---------- ---------- ---------- ----------
+         1 AMAN               10         25
+         2 RAJAN               9         36
+         3 MANOJ               8         29
+         4 ALOK               10         30
+         5 RANJIT              9         34
+
+SQL> SELECT * FROM BOATS46;
+
+       BID BNAME      COLOR
+---------- ---------- ----------
+       101 ALPHA      RED
+       102 BRAVO      BLACK
+       103 CHARLI     BROWN
+       104 DELTA      RED
+       105 GOAT       BLUE
+
+SQL> SELECT * from RESERV466;
+
+no rows selected
+
+SQL> CREATE TABLE RESERV046(SID INT REFERENCES SAILOR46,BID INT REFERENCES BOATS46,DAY DATE);
+
+Table created.
+
+SQL> INSERT INTO RESERV046 VALUES(1,101,'12-JAN-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(1,101,'11-MAR-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(2,102,'01-JUN-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(3,102,'21-FEB-2022');
+
+1 row created.
+
+SQL> INSERT INTO RESERV046 VALUES(4,104,'12-AUG-2022');
+
+1 row created.
+
+SQL> SELECT * from RESERV046;
+
+       SID        BID DAY
+---------- ---------- ---------
+         1        101 12-JAN-22
+         1        101 11-MAR-22
+         2        102 01-JUN-22
+         3        102 21-FEB-22
+         4        104 12-AUG-22
+
+
+5).SQL> SELECT SID,SNAME FROM SAILOR46 WHERE SID IN(SELECT SID FROM RESERV046 WHERE DAY='11-MAR-
+ND BID IN(SELECT BID FROM BOATS46));
+
+       SID SNAME
+---------- ----------
+         1 AMAN
+
+
+6).SQL> SELECT SID FROM SAILOR46 WHERE SID IN(SELECT SID FROM RESERV046 WHERE BID IN(SELECT BID 
+ATS46 WHERE COLOR='RED'));
+
+       SID
+----------
+         1
+         4
+
+
+
+7).SQL> SELECT SNAME,AGE FROM SAILOR46 WHERE AGE<=30;
+
+SNAME             AGE
+---------- ----------
+AMAN               25
+MANOJ              29
+ALOK               30
+
+SQL> SELECT COUNT(SNAME) FROM SAILOR;
+
+COUNT(SNAME)
+------------
+           5
+
+8).SQL> SELECT COUNT(SNAME) FROM SAILOR46;
+
+COUNT(SNAME)
+------------
+           5
+
+9).SQL> SELECT AVG(AGE) FROM SAILOR46;
+
+  AVG(AGE)
+----------
+      30.8
+
+
+
+10).SQL> SELECT RATING,AVG(AGE)FROM SAILOR46 GROUP BY RATING HAVING COUNT(*)>1;
+
+    RATING   AVG(AGE)
+---------- ----------
+         9         35
+        10       27.5
+
+SQL> 

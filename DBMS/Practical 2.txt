@@ -1,0 +1,131 @@
+LAB PRACTICE ASSIGNMENT 2
+Create a table EMPLOYEE with following schema:
+(Emp_no, E_name, E_address, E_ph_no, Dept_no, Dept_name,Job_id , Salary)
+Write SQL queries for following question:
+1. Insert aleast 5 rows in the table.
+2. Display all the information of EMP table.
+3. Display the record of each employee who works in department D10.
+4. Update the city of Emp_no-12 with current city as Nagpur.
+5. Display the details of Employee who works in department MECH.
+6. Delete the email_id of employee James.
+7. Display the complete record of employees working in SALES Department.
+
+==============================================================================================
+
+ CREATE TABLE EMPLOYEE
+  ( EMP_NO INT PRIMARY KEY NOT NULL,
+  E_NAME VARCHAR2(10),
+  E_ADDRESS VARCHAR2(10),
+  E_PH_NO NUMBER(10),
+  DEPT_NO VARCHAR(3),
+  DEPT_NAME VARCHAR(5),
+  JOB_ID VARCHAR(5),
+  SAL NUMBER(5)
+  );
+
+Table created.
+
+
+ INSERT INTO EMPLOYEE VALUES(1,'RANJIT','SIWAN',976543210,'D1','HR','MAG',75600);
+ INSERT INTO EMPLOYEE VALUES(2,'SUMIT','GAYA',876543210,'D2','TECH','SLR',55600);
+ INSERT INTO EMPLOYEE VALUES(3,'AMAN','PUNE',946543210,'D1','TECH','SLR',55600);
+ INSERT INTO EMPLOYEE VALUES(4,'ALOK','THANE',996543210,'D3','HR','DMAG',65600);
+ INSERT INTO EMPLOYEE VALUES(5,'RANJAN','LEH',676543210,'D3','LDR','CLR',62600);
+
+=============================================================================
+
+ SELECT * FROM EMPLOYEE;
+
+
+    EMP_NO E_NAME     E_ADDRESS     E_PH_NO DEP DEPT_ JOB_I        SAL
+---------- ---------- ---------- ---------- --- ----- ----- ----------
+         1 RANJIT     SIWAN       976543210 D1  HR    MAG        75600
+         2 SUMIT      GAYA        876543210 D2  TECH  SLR        55600
+         3 AMAN       PUNE        946543210 D1  TECH  SLR        55600
+         4 ALOK       THANE       996543210 D3  HR    DMAG       65600
+         5 RANJAN     LEH         676543210 D3  LDR   CLR        62600
+   
+
+=============================================================================
+
+ SELECT * FROM EMPLOYEE WHERE DEPT_NO='D1';
+
+  
+    EMP_NO E_NAME     E_ADDRESS     E_PH_NO DEP DEPT_ JOB_I        SAL
+---------- ---------- ---------- ---------- --- ----- ----- ----------
+         1 RANJIT     SIWAN       976543210 D1  HR    MAG        75600
+         3 AMAN       PUNE        946543210 D1  TECH  SLR        55600
+
+
+=============================================================================
+
+  UPDATE EMPLOYEE
+  SET E_ADDRESS='NAGPUR' WHERE EMP_NO='4';
+  
+
+  SELECT * FROM EMPLOYEE;
+
+    EMP_NO E_NAME     E_ADDRESS     E_PH_NO DEP DEPT_ JOB_I        SAL
+---------- ---------- ---------- ---------- --- ----- ----- ----------
+         1 RANJIT     SIWAN       976543210 D1  HR    MAG        75600
+         2 SUMIT      GAYA        876543210 D2  TECH  SLR        55600
+         3 AMAN       PUNE        946543210 D1  TECH  SLR        55600
+         4 ALOK       NAGPUR      996543210 D3  HR    DMAG       65600
+         5 RANJAN     LEH         676543210 D3  LDR   CLR        62600
+
+
+===============================================================================
+
+   SELECT * FROM EMPLOYEE
+   WHERE DEPT_NAME='HR';
+
+    EMP_NO E_NAME     E_ADDRESS     E_PH_NO DEP DEPT_ JOB_I        SAL
+---------- ---------- ---------- ---------- --- ----- ----- ----------
+         1 RANJIT     SIWAN       976543210 D1  HR    MAG        75600
+         4 ALOK       NAGPUR      996543210 D3  HR    DMAG       65600
+
+===============================================================================
+  ALTER TABLE EMPLOYEE ADD EMAIL VARCHAR2(10);
+
+ Table altered.
+
+
+ INSERT INTO EMPLOYEE VALUES(6,'A.SINGH','DELHI',9988446622,'D3','ADMIN','ADM',64500,'a@abc.com');
+
+ UPDATE EMPLOYEE
+  2  SET EMAIL=''
+  3  WHERE E_NAME='A.SINGH';
+
+1 row updated.
+
+===============================================================================
+
+  SELECT * FROM EMPLOYEE
+  2  WHERE DEPT_NAME='TECH';
+
+    EMP_NO E_NAME     E_ADDRESS     E_PH_NO DEP DEPT_ JOB_I        SAL	EMAIL
+---------- ---------- ---------- ---------- --- ----- ----- ---------- ---------
+
+
+         2 SUMIT      GAYA        876543210 D2  TECH  SLR        55600
+
+
+         3 AMAN       PUNE        946543210 D1  TECH  SLR        55600
+
+
+==================================================================================
+==================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+

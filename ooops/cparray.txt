@@ -1,0 +1,54 @@
+#include <iostream>
+#include <stdexcept>
+
+class CppArray {
+public:
+    CppArray(int size) : m_size(size), m_data(new int[size]) {}
+
+    ~CppArray() {
+        delete[] m_data;
+    }
+
+    int& operator[](int index) {
+        if (index < 0 || index >= m_size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return m_data[index];
+    }
+
+    CppArray& operator=(const CppArray& other) {
+        if (this != &other) {
+            delete[] m_data;
+            m_size = other.m_size;
+            m_data = new int[m_size];
+            for (int i = 0; i < m_size; i++) {
+                m_data[i] = other.m_data[i];
+            }
+        }
+        return *this;
+    }
+
+    int size() const {
+        return m_size;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const CppArray& arr) {
+        os << "[ ";
+        for (int i = 0; i < arr.m_size; i++) {
+            os << arr.m_data[i] << " ";
+        }
+        os << "]";
+        return os;
+    }
+
+    friend std::istream& operator>>(std::istream& is, CppArray& arr) {
+        for (int i = 0; i < arr.m_size; i++) {
+            is >> arr.m_data[i];
+        }
+        return is;
+    }
+
+private:
+    int m_size;
+    int* m_data;
+};

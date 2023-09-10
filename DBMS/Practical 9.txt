@@ -1,0 +1,49 @@
+CURSOR PROGRAM     
+
+    CREATE TABLE EMPLOYEE(
+    EMP_ID NUMBER(10),
+    EMP_NAME VARCHAR(10),
+    EMP_ADDRESS VARCHAR(10),
+    EMP_PH NUMBER(10),
+    DEPT_NO NUMBER(1),
+    DEPT_NAME VARCHAR(5),
+    JOB_ID VARCHAR(5),
+    SALARY NUMBER(5)
+   );
+
+Table created.
+==========================================================================================
+ INSERT INTO EMPLOYEE VALUES(1,'RANJIT','DELHI',99668855,1,'TECH','ADM',64800);
+ INSERT INTO EMPLOYEE VALUES(2,'RAHUL','PATNA',77668855,2,'MANAG','HR',74800);
+ INSERT INTO EMPLOYEE VALUES(3,'JAWANT','BHOPAL',55668855,2,'TECH','ADM',54800);
+ INSERT INTO EMPLOYEE VALUES(4,'MADHU','JHASI',99888855,1,'SLR','QAM',44800);
+ INSERT INTO EMPLOYEE VALUES(5,'PRIYA','JAIPUR',99663355,1,'PTR','QAM',54800);
+
+SELECT * FROM EMPLOYEE;
+
+    EMP_ID EMP_NAME   EMP_ADDRES     EMP_PH    DEPT_NO DEPT_ JOB_I     SALARY
+---------- ---------- ---------- ---------- ---------- ----- ----- ----------
+         1 RANJIT     DELHI        99668855          1 TECH  ADM        64800
+         2 RAHUL      PATNA        77668855          2 MANAG HR         74800
+         3 JAWANT     BHOPAL       55668855          2 TECH  ADM        54800
+         4 MADHU      JHASI        99888855          1 SLR   QAM        44800
+         5 PRIYA      JAIPUR       99663355          1 PTR   QAM        54800
+=============================================================================================
+ DECLARE
+   CURSOR empdetails IS
+      SELECT EMP_ID, EMP_NAME, SALARY, DEPT_NAME FROM EMPLOYEE;
+
+   emp_id EMPLOYEE.EMP_ID%TYPE;
+   emp_name EMPLOYEE.EMP_NAME%TYPE;
+   salary EMPLOYEE.SALARY%TYPE;
+   dept_name EMPLOYEE.DEPT_NAME%TYPE;
+BEGIN
+   OPEN empdetails;
+   LOOP
+      FETCH empdetails INTO emp_id, emp_name, salary, dept_name;
+      EXIT WHEN empdetails%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('emp_id=' || emp_id || ', emp_name=' || emp_name || ', salary=' || salary || ', dept_name=' || dept_name);
+   END LOOP;
+   CLOSE empdetails;
+END;
+/

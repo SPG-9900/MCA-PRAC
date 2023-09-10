@@ -1,0 +1,21 @@
+#include <iostream>
+
+class Rectangle {
+  private:
+    double width;
+    double height;
+  public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    friend void printDimensions(Rectangle rect); // declaration of friend function
+};
+
+void printDimensions(Rectangle rect) { // definition of friend function
+  std::cout << "Width: " << rect.width << std::endl;
+  std::cout << "Height: " << rect.height << std::endl;
+}
+
+int main() {
+  Rectangle rect(3, 4);
+  printDimensions(rect); // call to friend function
+  return 0;
+}

@@ -1,0 +1,49 @@
+
+# KMeans Algorithm
+#To install all the required packages for plot and data manipulation
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("ggfortify")
+
+#importing library
+library("ggplot2")
+library("dplyr")
+library("ggfortify")
+
+#summary for data manipulation
+summary(iris)
+
+#it gives all the records of the data set
+head(iris)
+
+data <- select(iris, c(1:4))
+
+#it is used for getting optimum number of clusters
+# to choose number of clusters we are using wssplot
+wssplot <- function(data, nc=15, seed=1234){
+  wss <- (nrow(data)-1)*sum(apply(data,2,var))
+  for (i in 2:nc){
+    set.seed(seed)
+    wss[i] <- sum(kmeans(data, centers=i)$withinss)}
+  plot(1:nc, wss, type="b", xlab="Number of Clusters",
+       ylab="Within groups sum of squares")
+  wss
+}
+
+#withing group sum of squares
+#the value of k should be 3 according to the wssplot
+wssplot(data)
+
+#performing operation using kmeans function by giving k = 2
+kmean <- kmeans(data, 2)
+kmean$centers
+
+#cluster plot
+autoplot(kmean, data, frame = TRUE)
+
+#performing operation using kmeans function by giving k = 3
+kmean <- kmeans(data, 3)
+kmean$centers
+
+autoplot(kmean, data, frame = TRUE)
+

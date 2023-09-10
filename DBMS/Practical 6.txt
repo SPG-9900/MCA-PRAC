@@ -1,0 +1,168 @@
+ASSIGNMENT NO 06
+
+LAB PRACTICE ASSIGNMENT:
+Create a relation and implement the following queries.
+1. Display total salary spent for each job category.
+2. Display lowest paid employee details under each manager.
+3. Display number of employees working in each department and their department name.
+4. Display the details of employees sorting the salary in increasing order.
+5. Show the record of employee earning salary greater than 16000 in each department.
+6. Write queries to implement and practice the above clause.
+
+
+============================================
+
+
+CREATE TABLE DEPARTMENT(
+DNO INT PRIMARY KEY,
+DNAME VARCHAR2(10),
+MGRCODE VARCHAR2(10)
+);
+
+============================================
+
+CREATE TABLE EMPLOYEE(
+EID INT PRIMARY KEY NOT NULL,
+ENAME VARCHAR2(10),
+DOB DATE,
+ADDRESS VARCHAR(10),
+SALARY NUMBER(5),
+DNO INT REFERENCES DEPARTMENT
+);
+
+============================================
+
+INSERT INTO DEPARTMENT VALUES
+(1,'FINANCE','HR101');
+
+INSERT INTO DEPARTMENT VALUES
+(2,'SALES','SL001');
+
+INSERT INTO DEPARTMENT VALUES
+(3,'MANAGER','MG201');
+
+INSERT INTO DEPARTMENT VALUES
+(4,'MANAGER','MG101');
+
+INSERT INTO DEPARTMENT VALUES
+(5,'PROD','PR501');
+============================================
+
+INSERT INTO EMPLOYEE VALUES
+(1,'ALOK','16-JAN-2000','DELHI',64800,1);
+
+INSERT INTO EMPLOYEE VALUES(
+2,'RAMLOK','12-JUL-2000','PATNA',54800,2);
+
+INSERT INTO EMPLOYEE VALUES(
+3,'RANJIT','19-NOV-1998','LUCKNOW',72800,2);
+
+INSERT INTO EMPLOYEE VALUES(
+4,'RAMAN','11-OCT-2000','BHOPAL',75800,4);
+
+INSERT INTO EMPLOYEE VALUES(
+5,'SOMAN','12-DEC-1989','MUMBAI',60800,3);
+
+
+===========================================
+
+SQL> SELECT * FROM DEPARTMENT;
+
+       DNO DNAME      MGRCODE
+---------- ---------- ----------
+         1 FINANCE       F101
+         2 SALES      SL001
+         3 MANAGER    MG201
+         4 MANAGER    MG101
+         5 PROD       PR501
+
+
+L> SELECT * FROM EMPLOYEE;
+
+     EID ENAME      DOB       ADDRESS        SALARY        DNO
+-------- ---------- --------- ---------- ---------- ----------
+       1 ALOK       16-JAN-00 DELHI           64800          1
+       2 RAMLOK     12-JUL-00 PATNA           54800          2
+       3 RANJIT     19-NOV-98 LUCKNOW         72800          2
+       4 RAMAN      11-OCT-00 BHOPAL          75800          4
+       5 SOMAN      12-DEC-89 MUMBAI          60800          3
+
+================================================
+
+
+ 1).SELECT DNO, SUM(SALARY)
+ FROM EMPLOYEE
+ GROUP BY DNO;
+
+   DNO SUM(SALARY)
+------ -----------
+     1       64800
+     2      127600
+     3       60800
+     4       75800
+
+================================================
+
+
+2).SELECT DNAME, MIN(SALARY)
+FROM EMPLOYEE, DEPARTMENT
+WHERE DNAME='MANAGER'
+GROUP BY DNAME
+ORDER BY MIN(SALARY) DESC;
+
+DNAME      MIN(SALARY)
+---------- -----------
+MANAGER          54800
+
+SQL> 
+================================================
+
+
+3).SELECT DNO, COUNT(*)
+FROM DEPARTMENT
+GROUP BY DNO;
+
+ SELECT DNO, COUNT(*)
+ FROM DEPARTMENT
+ GROUP BY DNO;
+
+   DNO   COUNT(*)
+------ ----------
+     1          1
+     2          1
+     3          1
+     4          1
+     5          1
+
+
+================================================
+
+
+ 
+ 4).SELECT * 
+ FROM EMPLOYEE
+ ORDER BY SALARY ASC;
+
+   EID ENAME      DOB       ADDRESS        SALARY        DNO
+------ ---------- --------- ---------- ---------- ----------
+     2 RAMLOK     12-JUL-00 PATNA           54800          2
+     5 SOMAN      12-DEC-99 MUMBAI          60800          3
+     1 ALOK       12-JAN-00 DELHI           64800          1
+     3 RANJIT     19-NOV-98 LUCKNOW         72800          2
+     4 RAMAN      23-OCT-00 BHOPAL          75800          4
+
+================================================
+
+
+
+5).SELECT DNO, ENAME FROM EMPLOYEE
+ WHERE SALARY>70000
+ GROUP BY DNO, ENAME;
+
+   DNO ENAME
+------ ----------
+     2 RANJIT
+     4 RAMAN
+
+================================================
+

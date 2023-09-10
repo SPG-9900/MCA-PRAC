@@ -1,0 +1,99 @@
+An educational institute wishes to maintain a database of its employees. The database is divided into a number of classes whose hierarchical relationships are shown in figure below. The figure also shows the minimum information required for each class. Specify all the classes and define functions to create the database and retrieve individual information as and when required
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Define the Employee class
+class Employee {
+public:
+    string name;
+    int age;
+    string address;
+    virtual void printInfo() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Address: " << address << endl;
+    }
+};
+
+// Define the Teacher class
+class Teacher : public Employee {
+public:
+    string subject;
+    virtual void printInfo() {
+        Employee::printInfo();
+        cout << "Subject: " << subject << endl;
+    }
+};
+
+// Define the Staff class
+class Staff : public Employee {
+public:
+    string jobTitle;
+    virtual void printInfo() {
+        Employee::printInfo();
+        cout << "Job Title: " << jobTitle << endl;
+    }
+};
+
+// Define the Admin class
+class Admin : public Employee {
+public:
+    string department;
+    virtual void printInfo() {
+        Employee::printInfo();
+        cout << "Department: " << department << endl;
+    }
+};
+
+// Define the Database class
+class Database {
+private:
+    vector<Employee*> employees;
+public:
+    void addEmployee(Employee* emp) {
+        employees.push_back(emp);
+    }
+    void printAll() {
+        for (int i = 0; i < employees.size(); i++) {
+            employees[i]->printInfo();
+            cout << endl;
+        }
+    }
+};
+
+// Main function
+int main() {
+    // Create some sample employees
+    Teacher t1;
+    t1.name = "John Smith";
+    t1.age = 35;
+    t1.address = "123 Main St.";
+    t1.subject = "Mathematics";
+
+    Staff s1;
+    s1.name = "Jane Doe";
+    s1.age = 28;
+    s1.address = "456 Elm St.";
+    s1.jobTitle = "Secretary";
+
+    Admin a1;
+    a1.name = "Bob Johnson";
+    a1.age = 42;
+    a1.address = "789 Oak St.";
+    a1.department = "Finance";
+
+    // Create the database and add the employees
+    Database db;
+    db.addEmployee(&t1);
+    db.addEmployee(&s1);
+    db.addEmployee(&a1);
+
+    // Print out all the employee information
+    db.printAll();
+
+    return 0;
+}

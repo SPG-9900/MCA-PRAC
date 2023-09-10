@@ -1,0 +1,66 @@
+
+Assignment 6 – Vector indexing and slicing
+
+> v1 <- c(100,200,300)
+> v2 <- c('a','b','c')
+> v1
+[1] 100 200 300
+> v2
+[1] "a" "b" "c"
+> v1[2]
+[1] 200
+> v1[3]
+[1] 300
+> v2[3]
+[1] "c"
+> v1[c(1,2)]
+[1] 100 200
+> v2[c(1,2)]
+[1] "a" "b"
+> v <- c(1,2,3,4,5,6,7,8,9,10)
+> v
+ [1]  1  2  3  4  5  6  7  8  9 10
+> v[2:4]
+[1] 2 3 4
+> v[7:10]
+[1]  7  8  9 10
+> v <- c(1,2,3,4)
+> v
+[1] 1 2 3 4
+> names(v) <- c('a','b','c','d')
+> v
+a b c d 
+1 2 3 4 
+> v[2]
+b 
+2 
+> v['b']
+b 
+2 
+> v[c('c','d','a')]
+c d a 
+3 4 1 
+> v
+a b c d 
+1 2 3 4 
+> v[v>2]
+c d 
+3 4 
+> v>2
+    a     b     c     d 
+FALSE FALSE  TRUE  TRUE 
+> my.filter <- v>2
+> my.filter
+    a     b     c     d 
+FALSE FALSE  TRUE  TRUE 
+> v[my.filter]
+c d 
+3 4 
+
+Getting help in R 
+
+> help('vector')
+> ??vector
+> ??numeric
+> help.search('vector')
+

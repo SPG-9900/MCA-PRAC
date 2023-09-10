@@ -1,0 +1,16 @@
+import RPi.GPIO as GPIO
+import time
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(3, GPIO.IN)
+GPIO.setup(7, GPIO.OUT)
+
+while True:
+	time.sleep(2)
+	i = GPIO.input(3)
+	if(i==0):
+		print("Obstacle detected")
+		GPIO.output(7,True)
+	elif(i==1):
+		print9"not detected")
+		GPIO.output(7,False)

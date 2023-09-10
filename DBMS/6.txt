@@ -1,0 +1,61 @@
+1.group by and having clause
+2.orderby clause
+3.indexing
+
+1. Display total salary spent for each job category.
+select sum(salary),dname from dept,emp2 where dept.deptid=emp2.deptid group by dname
+SUM(SALARY) DNAME
+----------- --------------------
+      40000  Administration
+      40000 Purchasing
+      12000 Human Resources
+      38000 IT
+......................................................................
+2. Display lowest paid employee details under each manager.]
+select min(salary) from dept,emp2 where dept.deptid=emp2.deptid group by manager
+
+MIN(SALARY)
+-----------
+      20000
+      12000
+      14000
+...........................................................................
+3. Display number of employees working in each department and their department name
+select count(*),dname from emp2,dept where dept.deptid=emp2.deptid group by dname
+
+
+ COUNT(*) DNAME
+--------- --------------------
+        2  Administration
+        2 Purchasing
+        1 Human Resources
+        2 IT
+..............................................................................
+4. Display the details of employees sorting the salary in increasing order
+select * from emp2 order by(salary) desc
+       EID ENAME                    DEPTID     SALARY
+---------- -------------------- ---------- ----------
+         7 rahul                         5      24000
+         2 sumit                         1      20000
+         3 rohan                         3      20000
+         1 Mohit                         1      20000
+         4 mohan                         3      20000
+         6 soham                         5      14000
+         5 khushi                        4      12000
+
+...............................................................................
+5. Show the record of employee earning salary greater than 16000 in each department.
+select * from dept,emp2 where dept.deptid=emp2.deptid and salary>16000 group by dname group by dname
+
+    DEPTID DNAME                LOC                     PINCODE
+---------- -------------------- -------------------- ----------
+MANAGER                     EID ENAME                    DEPTID     SALARY
+-------------------- ---------- -------------------- ---------- ----------
+         1  Administration      Nashik                   422007
+Soham                         1 Mohit                         1      20000
+
+         3 Purchasing           Nashik                   422007
+Mohit                         3 rohan                         3      20000
+
+         5 IT                   Mumbai                   411002
+Rahul                         7 rahul                         5      24000

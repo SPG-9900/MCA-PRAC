@@ -1,0 +1,33 @@
+install.packages('rpart')
+
+library(rpart)
+
+str(kyphosis)
+
+head(kyphosis)
+
+tail(kyphosis)
+
+fit <- rpart(Kyphosis ~ Age + Number + Start, method ='class',data = kyphosis)
+printcp(fit)
+
+plot(fit, uniform = T, main='kyphosis tree')
+
+install.packages(('rpart.plot'))
+install.packages('rpart.plot')
+
+library(rpart.plot)
+
+prp(fit)
+
+tree <- rpart(Kyphosis ~ Age + Number + Start, method ='class',data = kyphosis)
+
+printcp(tree)
+
+plot(tree,uniform = T,main='kyphosis tree')
+
+text(tree,use.n = T,all=T)
+
+prp(tree)
+
+

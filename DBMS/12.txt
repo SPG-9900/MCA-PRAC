@@ -1,0 +1,105 @@
+
+1. Database Commands View all databases
+>show dbs admin 0.000GB cillege 0.000GB college 0.000GB config 0.000GB local 0.000GB
+......................................................................................
+Create a new or switch databases
+
+>use student
+............................................................
+View current Database
+
+>db college
+.........................................................................
+
+Delete Database
+
+>db.dropDatabase()
+
+{ "dropped" : "cillege", "ok" : 1 }
+
+.......................................................................
+
+Collection Commands
+
+>Show Collections student
+
+.......................................................................
+Create a collection named 'student'
+
+>db.createCollection('student')
+ 
+{ "ok" : 1 }
+
+.......................................................................
+
+Drop a collection named 'stud' db.stud.drop()
+true
+
+..........................................................................
+
+Show all Rows in a Collection db.student.find()
+{ "_id" : ObjectId("64ae4cb2af1ac97d704ed326"), "name" : "Aarti", "class" : "Fymca", "age" : 22 }
+
+..........................................................................................
+
+Show all Rows in a Collection (Prettified) db.comments.find().pretty()
+{
+
+"_id" : ObjectId("64ae4cb2af1ac97d704ed326"), "name" : "Aarti",
+"class" : "Fymca", "age" : 22
+}
+
+............................................................................................
+
+Find the first row matching the object
+
+>	db.student.find({name:"Jay"}).pretty()
+
+{
+
+"_id" : ObjectId("64ae56a9bcafcc2ecb8b471d"), "name" : "Jay",
+"class" : "Symca", "age" : 22
+}
+
+............................................................................................
+
+Insert One Row
+ 
+>	db.student.insertOne({name:"Jay",class:"Symca",age:22})
+
+{
+
+"acknowledged" : true,
+
+"insertedId" : ObjectId("64ae56a9bcafcc2ecb8b471d")
+
+}
+.............................................................................................
+Insert many Rows db.student.insertOne([{name:"Mohit",class:"Symca",age:23},{name:"Sumit",class:"Symca",age:26}])
+{
+
+"acknowledged" : true, "insertedIds" : [
+ObjectId("64ae57e4bcafcc2ecb8b471f"), ObjectId("64ae57e4bcafcc2ecb8b4720")
+]
+
+}
+
+...............................................................................................................
+
+Limit the number of rows in output db.comments.find().limit(2)
+
+...........................................................................................................
+Count the number of rows in the output db.comments.find().count()
+................................................................................................................
+Update a row
+
+>db.student.update({"name":"Abc"},{$set:{"class":32}}) WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 }) assignment 3
+Mongodb Increment Operator db.student.update({name: 'Aarti'},
+{$inc:{age: 1}})
+.......................................................................................................................
+Less than/Greater than/ Less than or Eq/Greater than or Eq 
+
+db.student.find({age: {$lt: 90}})
+db.student.find({age: {$lte: 90}})
+db.student.find({age: {$gt: 90}})
+db.student.find({age: {$gte: 90}})

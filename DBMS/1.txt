@@ -1,0 +1,101 @@
+1.create table
+2.alter table
+3.drop table
+
+#Create a table with name Department:
+
+
+create table Dept(
+                Deptno int,
+                Dname varchar(10),
+                loc varchar(4),
+                primary key(Deptno)
+            );
+
+OUTPUT:   Table created.
+.........................................................................
+#Rename the table Dept with Department:
+
+
+Alter table Dept Rename to Department;
+
+OUTPUT: Table altered.
+..........................................................................
+#To Insert the values in the table:
+
+
+        insert into Department( Deptno, Dname,loc )values(1,'Devlopment','nash');
+        insert into Department( Deptno, Dname,loc )values(2,'Testing','pune');
+        insert into Department( Deptno, Dname,loc )values(3,'production','pimp');
+        insert into Department( Deptno, Dname,loc )values(4,'management','pune');
+        insert into Department( Deptno, Dname,loc )values(5,'marketing','goa');
+        insert into Department( Deptno, Dname,loc )values(6,'HR','USA');
+        insert into Department( Deptno, Dname,loc )values(7,'Sales','UK');
+        insert into Department( Deptno, Dname,loc )values(8,'Sr.maneger','mumb');
+
+OUTPUT: 1 row(s) inserted.
+..............................................................................
+#Display the Table:
+
+
+select *from Department;
+
+OUTPUT:  
+ 
+DEPTNO	DNAME	LOC
+1	Devlopment	nash
+2	Testing	        pune
+3	production	pimp
+4	management      pune
+5	marketing	goa
+6	HR	        USA
+7	Sales	        UK
+8	Sr.maneger	mumb
+..............................................................................
+#Add the new column pincode with not null constraint to the existing thable Department:
+
+
+Alter table Department Add(pincode number(6));
+
+desc Department;
+
+
+Table	Column	Data Type	Length	Precision	Scale	Primary Key	Nullable	Default	Comment
+DEPARTMENT	DEPTNO	Number	-	-	0	1	-	-	-
+ 	DNAME	Varchar2	10	-	-	-	nullable	-	-
+ 	LOC	Varchar2	4	-	-	-	nullable	-	-
+ 	PINCODE	Number	-	6	0	-	nullable	-	-
+1 - 4
+...................................................................................
+	
+#Drop table location:
+
+
+Alter table Department drop column loc cascade constraints;
+
+
+  Table dropped.
+.................................................................................
+#Rename Dname to DeptName
+
+
+Alter table Department Rename column Dname to deptName;
+
+OUTPUT: Table altered.
+...........................................................
+desc Department;
+
+OUTPUT:
+     Table	Column	Data Type	Length	Precision	Scale	Primary Key	Nullable	Default	Comment  
+     DEPARTMENT	DEPTNO	Number	-	-	0	1	-	-	-
+     DEPTNAME	Varchar2	10	-	-	-	nullable	-	-
+     PINCODE	Number	-	6	0	-	nullable	-	-
+1 - 3	
+.................................................................................
+#Delete The table
+
+
+	
+drop table Department;
+
+OUTPUT: Table dropped.

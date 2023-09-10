@@ -1,0 +1,43 @@
+loan <- read.csv("C:\\Users\\Downloads\\german_credit.csv")
+
+str(loan)
+
+loan.subset <- loan[c('Creditability', 'Age..years.', 'Sex...Marital.Status', 'Occupation', 'Account.Balance', 'Credit.Amount', 'Length.of.current.employment', 'Purpose')]
+
+str(loan.subset)
+
+head(loan.subset)
+
+normalize <- function(x) { 
+  return ((x - min(x)) / (max(x) - min(x))) }
+
+loan.subset.n <- as.data.frame (lapply (loan.subset[,2:8], normalize))
+
+head(loan.subset.n)
+
+set.seed(123)
+
+dat.d <- sample (1:nrow (loan.subset.n), size = nrow (loan.subset.n) * 0.7, replace = FALSE) 
+
+train.loan <- loan.subset[dat.d,] 
+
+test.loan <- loan.subset[-dat.d,]
+
+train.loan_labels <- loan.subset[dat.d,1]
+test.loan_labels <- loan.subset[-dat.d,1]
+
+install.packages('class')
+library(class)
+
+NROW(train.loan_labels) 
+
+knn.26 <- knn(train=train.loan, test=test.loan, cl=train.loan_labels, k=26)
+
+knn.27 <- knn(train=train.loan, test=test.loan, cl=train.loan_labels, k=27)
+
+ACC.26 <- 100 * sum(test.loan_labels == knn.26)/NROW(test.loan_labels)
+
+ACC.27 <- 100 * sum(test.loan_labels == knn.27)/NROW(test.loan_labels)
+
+ACC.27
+ACC.26 

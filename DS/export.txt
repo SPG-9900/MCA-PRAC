@@ -1,0 +1,51 @@
+df <- data.frame(Name = c("John", "Bill", "Maria", "Tom"), Age = c(12,23,22,33))
+df
+
+write.csv(df, "C:\\Users\\Documents\\People.csv", row.names = FALSE)
+
+read.csv("D:\\People.csv")
+
+data <- read.csv("People.csv")
+
+print(data)
+
+
+df <- data.frame( id = c(1,2,3,4,5,6,7), name = c("A", "B", "C", "D", "E", "F", "G"),
+                  department = c ("IT", "Tech", "Marketing", "Marketing", "Tech", "IT", "HR")
+                  , salary = c(60754, 59640, 69040, 65043, 59943, 65000, 69000),
+                  projects = c(4,2,8,5,2,5,7)
+                  )
+df 
+write.csv(df, "C:\\Users\\Documents\\employee.csv", row.names = FALSE)
+
+csv_data <- read.csv(file = 'employee.csv')
+print(csv_data)
+
+# print number of columns
+print (ncol(csv_data))
+
+# print number of rows
+print(nrow(csv_data))
+
+csv_data <- read.csv(file ='sample.csv')
+min_pro <- min(csv_data$projects)
+print (min_pro)
+
+csv_data <- read.csv(file ='sample.csv')
+new_csv <- subset(csv_data, department == "HR" & projects <10)
+print (new_csv)
+
+
+csv_data <- read.csv(file ='sample.csv')
+new_csv <- subset(csv_data, department == "HR" & projects <10)
+write.csv(new_csv, "new_sample.csv")
+new_data <-read.csv(file ='new_sample.csv')
+print(new_data)
+
+
+csv_data <- read.csv(file ='sample.csv')
+new_csv <- subset(csv_data, department == "HR" & projects <10)
+write.csv(new_csv, "new_sample.csv", row.names = FALSE)
+new_data <-read.csv(file ='new_sample.csv')
+print(new_data)
+

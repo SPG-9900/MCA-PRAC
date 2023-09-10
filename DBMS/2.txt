@@ -1,0 +1,85 @@
+1.insert
+2.update
+3.delete
+
+1. Create a table EMPLOYEE with following schema:
+(Emp_no, E_name, E_address, E_ph_no, Dept_no, Dept_name,Job_id, Salary)
+
+
+create table EMPLOYE1(
+       EMP_NO INT PRIMARY KEY NOT NULL,
+       E_NAME VARCHAR(20),
+       E_ADDRESS VARCHAR(20),
+       E_PH  NUMBER(10),
+       DEPT_NO VARCHAR(10),
+       DEPT_NAME VARCHAR(15),
+       JOB_ID CHAR(10),
+       SALARY NUMBER(20)
+      );
+...............................................................................
+2.Insert values into the table
+
+
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(1,'RAM','NAshik',2545256,1,'devlopment','Jr',25000);
+
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(2,'Raghu','Pune',2548541,2,'testing','Sr',55000);
+ 
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(3,'Raghunat','Mumbai',5147896,3,'Networking','Sr',40000);
+ 
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(4,'vishnu','Navi Mumbai',4225864,4,'Technical','Jr',60000);
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(5,'Swami','solapur',2458751,5,'management','Sr',70000);
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(6,'Sujal','sinnar',9855123,6,'web design','Jr',80000);
+insert into EMPLOYE1( EMP_NO,E_NAME,E_ADDRESS, E_PH, DEPT_NO,DEPT_NAME,JOB_ID, SALARY)VALUES(7,'tejas','Germany',7542587,7,'Management','Sr',90000);
+...................................................................................................................................................... 
+3.Display Table:
+
+
+SELECT* FROM EMPLOYE1;
+
+
+EMP_NO   E_NAME	E_ADDRESS	E_PH	DEPT_NO	DEPT_NAME	JOB_ID	SALARY
+1	RAM	Nashik	2545256	1	devlopment	Jr	25000
+2	Raghu	Pune	2548541	2	testing	Sr	55000
+3	Raghunat	Mumbai	5147896	3	Networking	Sr	40000
+4	vishnu	Navi Mumbai	4225864	4	Technical	Jr	60000
+5	Swami	solapur	2458751	5	management	Sr	70000
+6	Sujal	sinnar	9855123	6	web design	Jr	80000
+.......................................................................................       
+4.UPDATE A ROW IN A TBALE
+
+
+UPDATE EMPLOYE1
+SET E_NAME = 'Tejas', DEPT_NAME= 'Jr'
+WHERE EMP_NO = 5;
+
+OUTPUT:
+
+EMP_NO	E_NAME	E_ADDRESS	E_PH	DEPT_NO	     DEPT_NAME	JOB_ID	SALARY
+1	RAM	  Nashik	                2545256	                               1	            devlopment	           Jr	        25000
+2	Raghu	Pune	2548541	2	testing	Sr	55000
+3	Raghunat	Mumbai	5147896	3	Networking	Sr	40000
+4	vishnu	Navi Mumbai	4225864	4	Technical	Jr	60000
+5	Tejas	solapur	2458751	5	Jr	Sr	70000
+6	Sujal	sinnar	9855123	6	web design	Jr	80000
+..............................................................................................................................
+5.Select querry:
+
+
+select E_NAME , SALARY from EMPLOYE1;
+
+
+OUTPUT:
+E_NAME	           SALARY
+RAM	          25000
+Raghu	          55000
+Raghunat        40000
+vishnu	           60000
+Tejas	            70000
+Sujal	             80000
+.......................................................................................
+#Delete The table
+
+	
+Drop table  EMPLOYE1;
+
+OUTPUT: Table dropped.

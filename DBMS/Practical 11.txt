@@ -1,0 +1,27 @@
+CREATE TABLE EMPLOYEE (
+  emp_id INT PRIMARY KEY NOT NULL,
+  emp_name VARCHAR2(20),
+  salary NUMBER(5)
+);
+
+INSERT INTO EMPLOYEE VALUES (1, 'RANJIT', 72000);
+INSERT INTO EMPLOYEE VALUES (2, 'ALOK', 25000);
+INSERT INTO EMPLOYEE VALUES (3, 'AMAN', 36000);
+
+CREATE OR REPLACE TRIGGER salary_diff_trigger
+  BEFORE DELETE OR INSERT OR UPDATE ON EMPLOYEE
+  FOR EACH ROW
+  WHEN (NEW.emp_id > 0)
+DECLARE
+  sal_diff NUMBER;
+BEGIN
+  sal_diff := :NEW.salary - :OLD.salary;
+  dbms_output.put_line('Old salary: ' || :OLD.salary);
+  dbms_output.put_line('New salary: ' || :NEW.salary);
+  dbms_output.put_line('Salary difference: ' || sal_diff);
+END;
+/
+
+SET SERVEROUTPUT ON;
+
+INSERT INTO EMPLOYEE VALUES (5, 'RANJIT', 45000);
