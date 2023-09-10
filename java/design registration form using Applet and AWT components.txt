@@ -1,0 +1,83 @@
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.TextField;
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RegistrationForm extends Frame implements ActionListener {
+    private TextField nameField, emailField, passwordField;
+    private Button submitButton;
+
+    public RegistrationForm() {
+        // Set frame properties
+        setTitle("Registration Form");
+        setSize(400, 300);
+        setLayout(null);
+        setBackground(Color.white);
+
+        // Create labels for name, email, and password
+        Label nameLabel = new Label("Name:");
+        Label emailLabel = new Label("Email:");
+        Label passwordLabel = new Label("Password:");
+
+        // Create text fields for name, email, and password
+        nameField = new TextField();
+        emailField = new TextField();
+        passwordField = new TextField();
+        passwordField.setEchoChar('*');
+
+        // Create a submit button
+        submitButton = new Button("Submit");
+        submitButton.addActionListener(this);
+
+        // Set component bounds
+        nameLabel.setBounds(50, 50, 100, 30);
+        emailLabel.setBounds(50, 100, 100, 30);
+        passwordLabel.setBounds(50, 150, 100, 30);
+        nameField.setBounds(150, 50, 200, 30);
+        emailField.setBounds(150, 100, 200, 30);
+        passwordField.setBounds(150, 150, 200, 30);
+        submitButton.setBounds(150, 200, 100, 30);
+
+        // Set fonts for labels and button
+        Font labelFont = new Font("Arial", Font.BOLD, 14);
+        nameLabel.setFont(labelFont);
+        emailLabel.setFont(labelFont);
+        passwordLabel.setFont(labelFont);
+        submitButton.setFont(labelFont);
+
+        // Add components to the frame
+        add(nameLabel);
+        add(emailLabel);
+        add(passwordLabel);
+        add(nameField);
+        add(emailField);
+        add(passwordField);
+        add(submitButton);
+
+        // Set frame visible
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton) {
+            String name = nameField.getText();
+            String email = emailField.getText();
+            String password = passwordField.getText();
+
+            // Perform validation and registration logic here
+            // For simplicity, let's just display the entered data
+            System.out.println("Name: " + name);
+            System.out.println("Email: " + email);
+            System.out.println("Password: " + password);
+        }
+    }
+
+    public static void main(String[] args) {
+        new RegistrationForm();
+    }
+}

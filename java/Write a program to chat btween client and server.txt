@@ -1,0 +1,77 @@
+//Client
+import java.io.*;
+import java.net.*;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            Socket clientSocket = new Socket("localhost", 12345); // Connect to the server on localhost and port 12345
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            String clientMessage, serverMessage;
+            while (true) {
+                System.out.print("Client: ");
+                clientMessage = reader.readLine(); // Read message from the client
+                out.println(clientMessage); // Send the client message to the server
+
+                if (clientMessage.equalsIgnoreCase("bye")) {
+                    break; // Exit the loop if the client sends "bye"
+                }
+
+                serverMessage = in.readLine(); // Read message from the server
+                System.out.println("Server: " + serverMessage);
+            }
+
+            reader.close();
+            out.close();
+            in.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
+
+//Server
+import java.io.*;
+import java.net.*;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            Socket clientSocket = new Socket("localhost", 12345); // Connect to the server on localhost and port 12345
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            String clientMessage, serverMessage;
+            while (true) {
+                System.out.print("Client: ");
+                clientMessage = reader.readLine(); // Read message from the client
+                out.println(clientMessage); // Send the client message to the server
+
+                if (clientMessage.equalsIgnoreCase("bye")) {
+                    break; // Exit the loop if the client sends "bye"
+                }
+
+                serverMessage = in.readLine(); // Read message from the server
+                System.out.println("Server: " + serverMessage);
+            }
+
+            reader.close();
+            out.close();
+            in.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
